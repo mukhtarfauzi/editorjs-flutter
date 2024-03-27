@@ -29,113 +29,105 @@ class EditorJSViewState extends State<EditorJSView> {
   void initState() {
     super.initState();
 
-    setState(
-      () {
-        dataObject = EditorJSData.fromJson(jsonDecode(widget.editorJSData!));
-        styles = EditorJSViewStyles.fromJson(jsonDecode(widget.styles!));
+    dataObject = EditorJSData.fromJson(jsonDecode(widget.editorJSData!));
+    styles = EditorJSViewStyles.fromJson(jsonDecode(widget.styles!));
 
-        customStyleMap = generateStylemap(styles.cssTags!);
+    customStyleMap = generateStylemap(styles.cssTags!);
 
-        dataObject.blocks!.forEach(
-          (element) {
-            double levelFontSize = 16;
+    dataObject.blocks!.forEach(
+      (element) {
+        double levelFontSize = 16;
 
-            switch (element.data!.level) {
-              case 1:
-                levelFontSize = 32;
-                break;
-              case 2:
-                levelFontSize = 24;
-                break;
-              case 3:
-                levelFontSize = 16;
-                break;
-              case 4:
-                levelFontSize = 12;
-                break;
-              case 5:
-                levelFontSize = 10;
-                break;
-              case 6:
-                levelFontSize = 8;
-                break;
-            }
+        switch (element.data!.level) {
+          case 1:
+            levelFontSize = 32;
+            break;
+          case 2:
+            levelFontSize = 24;
+            break;
+          case 3:
+            levelFontSize = 16;
+            break;
+          case 4:
+            levelFontSize = 12;
+            break;
+          case 5:
+            levelFontSize = 10;
+            break;
+          case 6:
+            levelFontSize = 8;
+            break;
+        }
 
-            switch (element.type) {
-              case "header":
-                items.add(Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        element.data!.text!,
-                        style: TextStyle(
-                            fontSize: levelFontSize,
-                            fontWeight: (element.data!.level! <= 3)
-                                ? FontWeight.bold
-                                : FontWeight.normal),
+        switch (element.type) {
+          case "header":
+            items.add(
+                Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                element.data!.text!,
+                style: TextStyle(
+                    fontSize: levelFontSize,
+                    fontWeight: (element.data!.level! <= 3)
+                        ? FontWeight.bold
+                        : FontWeight.normal),
+              )
+            ]));
+            break;
+          case "paragraph":
+            items.add(Html(
+              data: element.data!.text,
+              style: customStyleMap,
+            ));
+            break;
+          case "list":
+            String bullet = "\u2022 ";
+            String? style = element.data!.style;
+            int counter = 1;
+
+            element.data!.items!.forEach(
+              (element) {
+                if (style == 'ordered') {
+                  bullet = counter.toString();
+                  items.add(
+                    Row(children: [
+                      Expanded(
+                        child: Container(
+                            child: Html(
+                          data: bullet + element,
+                          style: customStyleMap,
+                        )),
                       )
-                    ]));
-                break;
-              case "paragraph":
-                items.add(Html(
-                  data: element.data!.text,
-                  style: customStyleMap,
-                ));
-                break;
-              case "list":
-                String bullet = "\u2022 ";
-                String? style = element.data!.style;
-                int counter = 1;
-
-                element.data!.items!.forEach(
-                  (element) {
-                    if (style == 'ordered') {
-                      bullet = counter.toString();
-                      items.add(
-                        Row(children: [
-                          Expanded(
+                    ]),
+                  );
+                  counter++;
+                } else {
+                  items.add(
+                    Row(
+                      children: <Widget>[
+                        Expanded(
                             child: Container(
-                                child: Html(
-                              data: bullet + element,
-                              style: customStyleMap,
-                            )),
-                          )
-                        ]),
-                      );
-                      counter++;
-                    } else {
-                      items.add(
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                                child: Container(
-                                  child: Html(
-                                      data: bullet + element,
-                                      style: customStyleMap),
-                                )
-                            )
-                          ],
-                        ),
-                      );
-                    }
-                  },
-                );
-                break;
-              case "delimiter":
-                items.add(Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Text('***', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold), textAlign: TextAlign.center,)
-                      Expanded(child: Divider(color: Colors.grey))
-                    ]));
-                break;
-              case "image":
-                items.add(Image.network(element.data!.file!.url!));
-                break;
-            }
-            items.add(const SizedBox(height: 10));
-          },
-        );
+                          child: Html(
+                              data: bullet + element, style: customStyleMap),
+                        ))
+                      ],
+                    ),
+                  );
+                }
+              },
+            );
+            break;
+          case "delimiter":
+            items.add(
+                Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              // Text('***', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold), textAlign: TextAlign.center,)
+              Expanded(child: Divider(color: Colors.grey))
+            ]));
+            break;
+          case "image":
+            items.add(Image.network(element.data!.file!.url!));
+            break;
+        }
+        items.add(const SizedBox(height: 10));
       },
     );
   }

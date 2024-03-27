@@ -18,9 +18,7 @@ class EditorJSEditorState extends State<EditorJSEditor> with ChangeNotifier {
   void initState() {
     super.initState();
 
-    setState(() {
-      items.add(Row(children: [TextComponent.addText()]));
-    });
+    items.add(Row(children: [TextComponent.addText()]));
   }
 
   @override

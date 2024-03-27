@@ -5,7 +5,6 @@ import 'package:editorjs_flutter/src/model/EditorJSData.dart';
 import 'package:editorjs_flutter/src/model/EditorJSViewStyles.dart';
 import 'package:editorjs_flutter/src/model/EditorJSCSSTag.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/style.dart';
 
 class EditorJSView extends StatefulWidget {
   final String? editorJSData;
@@ -145,9 +144,7 @@ class EditorJSViewState extends State<EditorJSView> {
                     : null,
                 color:
                     (element.color != null) ? getColor(element.color!) : null,
-                padding: (element.padding != null)
-                    ? EdgeInsets.all(element.padding!)
-                    : null));
+                padding: HtmlPaddings.all(element.padding ?? 0)));
       },
     );
 

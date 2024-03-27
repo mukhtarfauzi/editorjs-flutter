@@ -7,10 +7,10 @@ import 'package:editorjs_flutter/src/model/EditorJSCSSTag.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class EditorJSView extends StatefulWidget {
-  final String? editorJSData;
-  final String? styles;
+  final EditorJSData? data;
+  final EditorJSViewStyles? styles;
 
-  const EditorJSView({Key? key, this.editorJSData, this.styles})
+  const EditorJSView({Key? key, this.data, this.styles})
       : super(key: key);
 
   @override
@@ -19,8 +19,6 @@ class EditorJSView extends StatefulWidget {
 
 class EditorJSViewState extends State<EditorJSView> {
   String? data;
-  late EditorJSData dataObject;
-  late EditorJSViewStyles styles;
   final List<Widget> items = <Widget>[];
   late Map<String, Style> customStyleMap;
 
@@ -28,12 +26,9 @@ class EditorJSViewState extends State<EditorJSView> {
   void initState() {
     super.initState();
 
-    dataObject = EditorJSData.fromJson(jsonDecode(widget.editorJSData!));
-    styles = EditorJSViewStyles.fromJson(jsonDecode(widget.styles!));
+    customStyleMap = generateStylemap(widget.styles?.cssTags);
 
-    customStyleMap = generateStylemap(styles.cssTags!);
-
-    dataObject.blocks!.forEach(
+    widget.data?.blocks?.forEach(
       (element) {
         double levelFontSize = 16;
 
@@ -131,10 +126,10 @@ class EditorJSViewState extends State<EditorJSView> {
     );
   }
 
-  Map<String, Style> generateStylemap(List<EditorJSCSSTag> styles) {
+  Map<String, Style> generateStylemap(List<EditorJSCSSTag>? styles) {
     Map<String, Style> map = <String, Style>{};
 
-    styles.forEach(
+    styles?.forEach(
       (element) {
         map.putIfAbsent(
             element.tag.toString(),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:editorjs_flutter/editorjs_flutter.dart';
 import 'package:flutter/material.dart';
 import 'createnote.dart';
@@ -46,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
         .loadString("test_data/editorjsstyles.json");
 
     setState(() {
-      editorJSView = EditorJSView(editorJSData: data, styles: styles);
+      editorJSView = EditorJSView(data: EditorJSData.fromJson(jsonDecode(data)), styles: EditorJSViewStyles.fromJson(jsonDecode(styles)));
     });
   }
 

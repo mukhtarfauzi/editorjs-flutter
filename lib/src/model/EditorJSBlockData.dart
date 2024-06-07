@@ -28,6 +28,7 @@ class EditorJSBlockData {
 
     if (list != null) {
       list.forEach((element) {
+        print(element);
         itemsList.add(element);
       });
     }

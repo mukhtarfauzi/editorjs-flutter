@@ -56,13 +56,15 @@ class EditorJSViewState extends State<EditorJSView> {
           case "header":
             items.add(
                 Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                element.data!.text!,
-                style: TextStyle(
-                    fontSize: levelFontSize,
-                    fontWeight: (element.data!.level! <= 3)
-                        ? FontWeight.bold
-                        : FontWeight.normal),
+              Flexible(
+                child: Text(
+                  element.data!.text!,
+                  style: TextStyle(
+                      fontSize: levelFontSize,
+                      fontWeight: (element.data!.level! <= 3)
+                          ? FontWeight.bold
+                          : FontWeight.normal),
+                ),
               )
             ]));
             break;
@@ -95,13 +97,11 @@ class EditorJSViewState extends State<EditorJSView> {
                 style: {
                   ...customStyleMap,
                   'ol': Style(
-                    padding: HtmlPaddings.zero,
-                    margin: Margins.symmetric(horizontal: 20)
-                  ),
+                      padding: HtmlPaddings.zero,
+                      margin: Margins.symmetric(horizontal: 20)),
                   'ul': Style(
-                    padding: HtmlPaddings.zero,
-                    margin: Margins.symmetric(horizontal: 20)
-                  ),
+                      padding: HtmlPaddings.zero,
+                      margin: Margins.symmetric(horizontal: 20)),
                 },
                 shrinkWrap: true,
               ),

@@ -10,8 +10,7 @@ class EditorJSView extends StatefulWidget {
   final EditorJSData? data;
   final EditorJSViewStyles? styles;
 
-  const EditorJSView({Key? key, this.data, this.styles})
-      : super(key: key);
+  const EditorJSView({Key? key, this.data, this.styles}) : super(key: key);
 
   @override
   EditorJSViewState createState() => EditorJSViewState();
@@ -71,43 +70,41 @@ class EditorJSViewState extends State<EditorJSView> {
             items.add(Html(
               data: element.data!.text,
               style: customStyleMap,
+              shrinkWrap: true,
             ));
             break;
           case "list":
-            String bullet = "\u2022 ";
             String? style = element.data!.style;
-            int counter = 1;
-
+            List<String> list = [];
+            String data = '';
             element.data!.items!.forEach(
               (element) {
-                if (style == 'ordered') {
-                  bullet = counter.toString();
-                  items.add(
-                    Row(children: [
-                      Expanded(
-                        child: Container(
-                            child: Html(
-                          data: bullet + element,
-                          style: customStyleMap,
-                        )),
-                      )
-                    ]),
-                  );
-                  counter++;
-                } else {
-                  items.add(
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                            child: Container(
-                          child: Html(
-                              data: bullet + element, style: customStyleMap),
-                        ))
-                      ],
-                    ),
-                  );
-                }
+                list.add(
+                  '<li>$element</li>',
+                );
               },
+            );
+            if (style == 'ordered') {
+              data = '<ol>${list.join()}</ol>';
+            } else {
+              data = '<ul>${list.join()}</ul>';
+            }
+            items.add(
+              Html(
+                data: data,
+                style: {
+                  ...customStyleMap,
+                  'ol': Style(
+                    padding: HtmlPaddings.zero,
+                    margin: Margins.symmetric(horizontal: 20)
+                  ),
+                  'ul': Style(
+                    padding: HtmlPaddings.zero,
+                    margin: Margins.symmetric(horizontal: 20)
+                  ),
+                },
+                shrinkWrap: true,
+              ),
             );
             break;
           case "delimiter":
@@ -134,6 +131,7 @@ class EditorJSViewState extends State<EditorJSView> {
         map.putIfAbsent(
             element.tag.toString(),
             () => Style(
+                margin: Margins.zero,
                 backgroundColor: (element.backgroundColor != null)
                     ? getColor(element.backgroundColor!)
                     : null,

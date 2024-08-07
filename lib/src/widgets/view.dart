@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:editorjs_flutter/src/model/EditorJSData.dart';
 import 'package:editorjs_flutter/src/model/EditorJSViewStyles.dart';
@@ -10,7 +8,16 @@ class EditorJSView extends StatefulWidget {
   final EditorJSData? data;
   final EditorJSViewStyles? styles;
 
-  const EditorJSView({Key? key, this.data, this.styles}) : super(key: key);
+  /// A function that defines what to do when a link is tapped
+  final OnTap? onLinkTap;
+
+  /// A function that defines what to do when an anchor link is tapped. When this value is set,
+  /// the default anchor behaviour is overwritten.
+  final OnTap? onAnchorTap;
+
+  const EditorJSView(
+      {Key? key, this.data, this.styles, this.onLinkTap, this.onAnchorTap})
+      : super(key: key);
 
   @override
   EditorJSViewState createState() => EditorJSViewState();
@@ -73,6 +80,8 @@ class EditorJSViewState extends State<EditorJSView> {
               data: element.data!.text,
               style: customStyleMap,
               shrinkWrap: true,
+              onLinkTap: widget.onLinkTap,
+              onAnchorTap: widget.onAnchorTap,
             ));
             break;
           case "list":
@@ -104,6 +113,8 @@ class EditorJSViewState extends State<EditorJSView> {
                       margin: Margins.symmetric(horizontal: 20)),
                 },
                 shrinkWrap: true,
+                onLinkTap: widget.onLinkTap,
+                onAnchorTap: widget.onAnchorTap,
               ),
             );
             break;

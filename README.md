@@ -1,6 +1,26 @@
 # EditorJS viewer for Flutter
 
-A viewer and editor compatible with the EditorJS schema.
+A viewer compatible with the EditorJS schema.
+
+Editor.js is a block-styled editor that allows users to create content using various types of blocks. Each block serves a different purpose and can be customized. Here are the main types of blocks typically available in Editor.js:
+
+1. **Paragraph**: A standard text block for writing paragraphs of text.
+2. **Header**: Used for creating headings (H1, H2, H3, etc.) to organize content hierarchically.
+3. **List**: Supports ordered (numbered) and unordered (bulleted) lists.
+4. **Image**: Allows users to insert images into the content.
+5. **Video**: Used for embedding videos from various platforms.
+6. **Quote**: For adding block quotes or citations.
+7. **Delimiter**: A horizontal line to separate content visually.
+8. **Raw HTML**: For inserting custom HTML code directly into the content.
+9. **Table**: To create and manage tables within the content.
+10. **Link Tool**: For adding hyperlinks to text.
+11. **Code**: For displaying code snippets with syntax highlighting.
+12. **Marker**: To highlight text.
+13. **Checklist**: For creating interactive checklists.
+14. **Embed**: For embedding content from other platforms (like tweets or Facebook posts).
+15. **Audio**: To insert audio files.
+
+These blocks can be extended or customized with additional plugins to suit specific needs. The flexibility of Editor.js allows developers to create custom blocks as well.
 
 # DISCLAIMER
 This library is still under development, so critical bugs are expected and should not be used right now for a production environment.

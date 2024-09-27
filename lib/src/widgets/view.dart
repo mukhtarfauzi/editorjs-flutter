@@ -1,23 +1,28 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:editorjs_flutter/src/model/EditorJSData.dart';
 import 'package:editorjs_flutter/src/model/EditorJSViewStyles.dart';
-import 'package:editorjs_flutter/src/model/EditorJSCSSTag.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
 class EditorJSView extends StatefulWidget {
   final EditorJSData? data;
   final EditorJSViewStyles? styles;
 
   /// A function that defines what to do when a link is tapped
-  final OnTap? onLinkTap;
+  final FutureOr<bool> Function(String)? onLinkTap;
 
   /// A function that defines what to do when an anchor link is tapped. When this value is set,
   /// the default anchor behaviour is overwritten.
-  final OnTap? onAnchorTap;
+  // final OnTap? onAnchorTap;
 
-  const EditorJSView(
-      {Key? key, this.data, this.styles, this.onLinkTap, this.onAnchorTap})
-      : super(key: key);
+  const EditorJSView({
+    Key? key,
+    this.data,
+    this.styles,
+    this.onLinkTap,
+    // this.onAnchorTap,
+  }) : super(key: key);
 
   @override
   EditorJSViewState createState() => EditorJSViewState();
@@ -26,13 +31,13 @@ class EditorJSView extends StatefulWidget {
 class EditorJSViewState extends State<EditorJSView> {
   String? data;
   final List<Widget> items = <Widget>[];
-  late Map<String, Style> customStyleMap;
+  // late Map<String, Style> customStyleMap;
 
   @override
   void initState() {
     super.initState();
 
-    customStyleMap = generateStylemap(widget.styles?.cssTags);
+    // customStyleMap = generateStylemap(widget.styles?.cssTags);
 
     widget.data?.blocks?.forEach(
       (element) {
@@ -76,13 +81,19 @@ class EditorJSViewState extends State<EditorJSView> {
             ]));
             break;
           case "paragraph":
-            items.add(Html(
-              data: element.data!.text,
-              style: customStyleMap,
-              shrinkWrap: true,
-              onLinkTap: widget.onLinkTap,
-              onAnchorTap: widget.onAnchorTap,
-            ));
+            items.add(
+              HtmlWidget(
+                '<p>${element.data!.text}</p>',
+                onTapUrl: widget.onLinkTap,
+              ),
+            );
+            // items.add(Html(
+            //   data: '<p>tesss${element.data!.text}</p>',
+            //   style: customStyleMap,
+            //   shrinkWrap: true,
+            //   onLinkTap: widget.onLinkTap,
+            //   onAnchorTap: widget.onAnchorTap,
+            // ));
             break;
           case "list":
             String? style = element.data!.style;
@@ -100,23 +111,26 @@ class EditorJSViewState extends State<EditorJSView> {
             } else {
               data = '<ul>${list.join()}</ul>';
             }
-            items.add(
-              Html(
-                data: data,
-                style: {
-                  ...customStyleMap,
-                  'ol': Style(
-                      padding: HtmlPaddings.zero,
-                      margin: Margins.symmetric(horizontal: 20)),
-                  'ul': Style(
-                      padding: HtmlPaddings.zero,
-                      margin: Margins.symmetric(horizontal: 20)),
-                },
-                shrinkWrap: true,
-                onLinkTap: widget.onLinkTap,
-                onAnchorTap: widget.onAnchorTap,
-              ),
-            );
+            items.add(HtmlWidget(
+              data,
+              onTapUrl: widget.onLinkTap,
+            )
+                // Html(
+                //   data: data,
+                //   style: {
+                //     ...customStyleMap,
+                //     'ol': Style(
+                //         padding: HtmlPaddings.zero,
+                //         margin: Margins.symmetric(horizontal: 20)),
+                //     'ul': Style(
+                //         padding: HtmlPaddings.zero,
+                //         margin: Margins.symmetric(horizontal: 20)),
+                //   },
+                //   shrinkWrap: true,
+                //   onLinkTap: widget.onLinkTap,
+                //   onAnchorTap: widget.onAnchorTap,
+                // ),
+                );
             break;
           case "delimiter":
             items.add(
@@ -134,26 +148,26 @@ class EditorJSViewState extends State<EditorJSView> {
     );
   }
 
-  Map<String, Style> generateStylemap(List<EditorJSCSSTag>? styles) {
-    Map<String, Style> map = <String, Style>{};
+  // Map<String, Style> generateStylemap(List<EditorJSCSSTag>? styles) {
+  //   Map<String, Style> map = <String, Style>{};
 
-    styles?.forEach(
-      (element) {
-        map.putIfAbsent(
-            element.tag.toString(),
-            () => Style(
-                margin: Margins.zero,
-                backgroundColor: (element.backgroundColor != null)
-                    ? getColor(element.backgroundColor!)
-                    : null,
-                color:
-                    (element.color != null) ? getColor(element.color!) : null,
-                padding: HtmlPaddings.all(element.padding ?? 0)));
-      },
-    );
+  //   styles?.forEach(
+  //     (element) {
+  //       map.putIfAbsent(
+  //           element.tag.toString(),
+  //           () => Style(
+  //               margin: Margins.zero,
+  //               backgroundColor: (element.backgroundColor != null)
+  //                   ? getColor(element.backgroundColor!)
+  //                   : null,
+  //               color:
+  //                   (element.color != null) ? getColor(element.color!) : null,
+  //               padding: HtmlPaddings.all(element.padding ?? 0)));
+  //     },
+  //   );
 
-    return map;
-  }
+  //   return map;
+  // }
 
   Color getColor(String hexColor) {
     final hexCode = hexColor.replaceAll('#', '');
@@ -163,5 +177,130 @@ class EditorJSViewState extends State<EditorJSView> {
   @override
   Widget build(BuildContext context) {
     return Column(children: items);
+  }
+}
+
+
+// Not impletemented yet
+
+class EditorBlockRenderer extends StatelessWidget {
+  final List<dynamic> blocks;
+
+  EditorBlockRenderer({required this.blocks});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: blocks.map<Widget>((block) {
+        switch (block['type']) {
+          case 'header':
+            return Text(
+              block['data']['text'],
+              style: TextStyle(
+                fontSize: 24.0 - (block['data']['level'] * 2), // Adjust size based on level
+                fontWeight: FontWeight.bold,
+              ),
+            );
+          case 'paragraph':
+            return HtmlWidget(block['data']['text']);
+          case 'list':
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: block['data']['items'].map<Widget>((item) {
+                return Text('• $item'); // Bullet point for unordered list
+              }).toList(),
+            );
+          case 'image':
+            return Image.network(block['data']['file']['url']);
+          case 'quote':
+            return Container(
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              padding: EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                border: Border(left: BorderSide(color: Colors.grey, width: 4)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('“${block['data']['text']}”', style: TextStyle(fontStyle: FontStyle.italic)),
+                  SizedBox(height: 4.0),
+                  Text('- ${block['data']['caption']}', style: TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
+            );
+          case 'video':
+            return VideoPlayerBlock(videoUrl: block['data']['file']['url']);
+          case 'table':
+            return TableBlock(tableData: block['data']['content']);
+          default:
+            return SizedBox.shrink(); // Return an empty widget for unhandled types
+        }
+      }).toList(),
+    );
+  }
+}
+
+class VideoPlayerBlock extends StatefulWidget {
+  final String videoUrl;
+
+  VideoPlayerBlock({required this.videoUrl});
+
+  @override
+  _VideoPlayerBlockState createState() => _VideoPlayerBlockState();
+}
+
+class _VideoPlayerBlockState extends State<VideoPlayerBlock> {
+  // late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    // _controller = VideoPlayerController.network(widget.videoUrl)
+    //   ..initialize().then((_) {
+    //     setState(() {}); // Update the UI when the video is initialized
+    //   });
+  }
+
+  @override
+  void dispose() {
+    // _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        AspectRatio(
+          aspectRatio: 16 / 9,
+          // child: VideoPlayer(_controller),
+        ),
+        // VideoProgressIndicator(_controller, allowScrubbing: true),
+      ],
+    );
+  }
+}
+
+class TableBlock extends StatelessWidget {
+  final List<List<String>> tableData;
+
+  TableBlock({required this.tableData});
+
+  @override
+  Widget build(BuildContext context) {
+    return Table(
+      border: TableBorder.all(),
+      children: tableData.map<TableRow>((row) {
+        return TableRow(
+          children: row.map<Widget>((cell) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(cell),
+            );
+          }).toList(),
+        );
+      }).toList(),
+    );
   }
 }

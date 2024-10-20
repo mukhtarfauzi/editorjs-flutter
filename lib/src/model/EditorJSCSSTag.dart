@@ -1,3 +1,9 @@
+
+import 'package:json_annotation/json_annotation.dart';
+
+part 'EditorJSCSSTag.g.dart';
+
+@JsonSerializable()
 class EditorJSCSSTag {
   final String? tag;
   final String? backgroundColor;
@@ -6,12 +12,6 @@ class EditorJSCSSTag {
 
   EditorJSCSSTag({this.tag, this.backgroundColor, this.color, this.padding});
 
-  factory EditorJSCSSTag.fromJson(Map<String, dynamic> parsedJson) {
-    return EditorJSCSSTag(
-      tag: parsedJson['tag'],
-      backgroundColor: parsedJson['backgroundColor'],
-      color: parsedJson['color'],
-      padding: parsedJson['padding'],
-    );
-  }
+  factory EditorJSCSSTag.fromJson(Map<String, dynamic> parsedJson) => _$EditorJSCSSTagFromJson(parsedJson);
+  Map<String, dynamic> toJson() => _$EditorJSCSSTagToJson(this);
 }

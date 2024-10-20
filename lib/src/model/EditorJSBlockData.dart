@@ -1,5 +1,9 @@
 import 'package:editorjs_flutter/src/model/EditorJSBlockFile.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'EditorJSBlockData.g.dart';
+
+@JsonSerializable()
 class EditorJSBlockData {
   final String? text;
   final int? level;
@@ -22,27 +26,6 @@ class EditorJSBlockData {
       this.stretched,
       this.withBackground});
 
-  factory EditorJSBlockData.fromJson(Map<String, dynamic> parsedJson) {
-    var list = parsedJson['items'] as List?;
-    final List<String> itemsList = <String>[];
-
-    if (list != null) {
-      list.forEach((element) {
-        print(element);
-        itemsList.add(element);
-      });
-    }
-
-    return EditorJSBlockData(
-        text: parsedJson['text'],
-        level: parsedJson['level'],
-        style: parsedJson['style'],
-        items: itemsList,
-        file: (parsedJson['file'] != null)
-            ? EditorJSBlockFile.fromJson(parsedJson['file'])
-            : null,
-        caption: parsedJson['caption'],
-        withBorder: parsedJson['withBorder'],
-        withBackground: parsedJson['withBackground']);
-  }
+  factory EditorJSBlockData.fromJson(Map<String, dynamic> parsedJson) => _$EditorJSBlockDataFromJson(parsedJson);
+  Map<String, dynamic> toJson() => _$EditorJSBlockDataToJson(this);
 }

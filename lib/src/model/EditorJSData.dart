@@ -1,5 +1,10 @@
 import 'package:editorjs_flutter/src/model/EditorJSBlock.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+
+part 'EditorJSData.g.dart';
+
+@JsonSerializable()
 class EditorJSData {
   final int? time;
   final String? version;
@@ -7,18 +12,6 @@ class EditorJSData {
 
   EditorJSData({this.time, this.version, this.blocks});
 
-  factory EditorJSData.fromJson(Map<String, dynamic> parsedJson) {
-    var list = parsedJson['blocks'] as List;
-
-    List<EditorJSBlock> blocksList =
-        list.map((i) => EditorJSBlock.fromJson(i)).toList();
-
-    return EditorJSData(
-        time: parsedJson['time'],
-        version: parsedJson['version'],
-        blocks: blocksList);
-  }
-
-  Map<String, dynamic> toJson() =>
-      {'time': time, 'version': version, 'blocks': blocks};
+ factory EditorJSData.fromJson(Map<String, dynamic> parsedJson) => _$EditorJSDataFromJson(parsedJson);
+  Map<String, dynamic> toJson() => _$EditorJSDataToJson(this);
 }

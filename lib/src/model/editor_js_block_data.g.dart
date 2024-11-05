@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'EditorJSBlockData.dart';
+part of 'editor_js_block_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-EditorJSBlockData _$EditorJSBlockDataFromJson(Map<String, dynamic> json) =>
-    EditorJSBlockData(
+_$EditorJSBlockDataImpl _$$EditorJSBlockDataImplFromJson(
+        Map<String, dynamic> json) =>
+    _$EditorJSBlockDataImpl(
       text: json['text'] as String?,
       level: (json['level'] as num?)?.toInt(),
       style: json['style'] as String?,
@@ -22,7 +23,8 @@ EditorJSBlockData _$EditorJSBlockDataFromJson(Map<String, dynamic> json) =>
       withBackground: json['withBackground'] as bool?,
     );
 
-Map<String, dynamic> _$EditorJSBlockDataToJson(EditorJSBlockData instance) =>
+Map<String, dynamic> _$$EditorJSBlockDataImplToJson(
+        _$EditorJSBlockDataImpl instance) =>
     <String, dynamic>{
       'text': instance.text,
       'level': instance.level,

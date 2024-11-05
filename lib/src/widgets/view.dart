@@ -1,8 +1,10 @@
 import 'dart:async';
-
+import 'dart:convert';
+import 'dart:developer';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:editorjs_flutter/src/model/EditorJSData.dart';
-import 'package:editorjs_flutter/src/model/EditorJSViewStyles.dart';
+import 'package:editorjs_flutter/src/model/editor_js_data.dart';
+import 'package:editorjs_flutter/src/model/editor_js_view_styles.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
 class EditorJSView extends StatefulWidget {
@@ -66,16 +68,28 @@ class EditorJSViewState extends State<EditorJSView> {
 
         switch (element.type) {
           case "header":
+            final fontWeight = (element.data!.level! <= 3)
+                ? FontWeight.bold
+                : FontWeight.normal;
+            Color? color = null;
+            if (widget.styles != null) {
+              final foundGlobalStyle = widget.styles?.cssTags
+                  ?.firstWhereOrNull(((css) => css.tag == 'header'));
+              if (foundGlobalStyle != null && foundGlobalStyle.color != null) {
+                final colorHex = foundGlobalStyle.color!;
+                color = getColor(colorHex);
+              }
+            }
             items.add(
                 Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Flexible(
                 child: Text(
                   element.data!.text!,
                   style: TextStyle(
-                      fontSize: levelFontSize,
-                      fontWeight: (element.data!.level! <= 3)
-                          ? FontWeight.bold
-                          : FontWeight.normal),
+                    fontSize: levelFontSize,
+                    fontWeight: fontWeight,
+                    color: color
+                  ),
                 ),
               )
             ]));
@@ -83,8 +97,28 @@ class EditorJSViewState extends State<EditorJSView> {
           case "paragraph":
             items.add(
               HtmlWidget(
-                '<p>${element.data!.text}</p>',
+                '<p class="custom">${element.data!.text}</p>',
                 onTapUrl: widget.onLinkTap,
+                customStylesBuilder: (el) {
+                  if (widget.styles != null) {
+                    final foundGlobalStyle = widget.styles?.cssTags
+                        ?.firstWhereOrNull(((css) => css.tag == 'p'));
+
+                    log("Found Global Style: ${foundGlobalStyle?.toJson()}",
+                        name: "editorjs");
+                    if (foundGlobalStyle != null) {
+                      final style = foundGlobalStyle
+                          .toJson()
+                          .map((key, value) => MapEntry(key, '$value'));
+                      return style;
+                    }
+                  }
+                  if (el.className.contains('custom') &&
+                      element.data?.style != null) {
+                    return jsonDecode(element.data!.style!);
+                  }
+                  return null;
+                },
               ),
             );
             // items.add(Html(
@@ -180,7 +214,6 @@ class EditorJSViewState extends State<EditorJSView> {
   }
 }
 
-
 // Not impletemented yet
 
 class EditorBlockRenderer extends StatelessWidget {
@@ -198,7 +231,8 @@ class EditorBlockRenderer extends StatelessWidget {
             return Text(
               block['data']['text'],
               style: TextStyle(
-                fontSize: 24.0 - (block['data']['level'] * 2), // Adjust size based on level
+                fontSize: 24.0 -
+                    (block['data']['level'] * 2), // Adjust size based on level
                 fontWeight: FontWeight.bold,
               ),
             );
@@ -223,9 +257,11 @@ class EditorBlockRenderer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('“${block['data']['text']}”', style: TextStyle(fontStyle: FontStyle.italic)),
+                  Text('“${block['data']['text']}”',
+                      style: TextStyle(fontStyle: FontStyle.italic)),
                   SizedBox(height: 4.0),
-                  Text('- ${block['data']['caption']}', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('- ${block['data']['caption']}',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                 ],
               ),
             );
@@ -234,7 +270,8 @@ class EditorBlockRenderer extends StatelessWidget {
           case 'table':
             return TableBlock(tableData: block['data']['content']);
           default:
-            return SizedBox.shrink(); // Return an empty widget for unhandled types
+            return SizedBox
+                .shrink(); // Return an empty widget for unhandled types
         }
       }).toList(),
     );

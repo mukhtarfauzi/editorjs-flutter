@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'EditorJSData.dart';
+part of 'editor_js_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-EditorJSData _$EditorJSDataFromJson(Map<String, dynamic> json) => EditorJSData(
+_$EditorJSDataImpl _$$EditorJSDataImplFromJson(Map<String, dynamic> json) =>
+    _$EditorJSDataImpl(
       time: (json['time'] as num?)?.toInt(),
       version: json['version'] as String?,
       blocks: (json['blocks'] as List<dynamic>?)
@@ -14,7 +15,7 @@ EditorJSData _$EditorJSDataFromJson(Map<String, dynamic> json) => EditorJSData(
           .toList(),
     );
 
-Map<String, dynamic> _$EditorJSDataToJson(EditorJSData instance) =>
+Map<String, dynamic> _$$EditorJSDataImplToJson(_$EditorJSDataImpl instance) =>
     <String, dynamic>{
       'time': instance.time,
       'version': instance.version,

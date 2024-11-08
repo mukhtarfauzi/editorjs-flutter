@@ -86,10 +86,9 @@ class EditorJSViewState extends State<EditorJSView> {
                 child: Text(
                   element.data!.text!,
                   style: TextStyle(
-                    fontSize: levelFontSize,
-                    fontWeight: fontWeight,
-                    color: color
-                  ),
+                      fontSize: levelFontSize,
+                      fontWeight: fontWeight,
+                      color: color),
                 ),
               )
             ]));
@@ -203,9 +202,19 @@ class EditorJSViewState extends State<EditorJSView> {
   //   return map;
   // }
 
-  Color getColor(String hexColor) {
-    final hexCode = hexColor.replaceAll('#', '');
-    return Color(int.parse('$hexCode', radix: 16));
+  Color? getColor(String hexColor) {
+    // Remove the '#' if it is there
+    hexColor = hexColor.replaceAll('#', '');
+
+    // Check if the hex string has 8 characters (including alpha)
+    if (hexColor.length == 8) {
+      return Color(int.parse('0x$hexColor'));
+    } else if (hexColor.length == 6) {
+      return Color(
+          int.parse('0xFF$hexColor')); // Default alpha to 255 (fully opaque)
+    } else {
+      return null;
+    }
   }
 
   @override

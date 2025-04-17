@@ -398,7 +398,7 @@ packages:
     source: hosted
     version: "0.16.0"
   fwfh_chewie:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: fwfh_chewie
       sha256: "1ce7c56894db19881a997813b933835dec142878431370c0eb40f1f878396a25"
@@ -430,7 +430,7 @@ packages:
     source: hosted
     version: "0.16.0"
   fwfh_webview:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: fwfh_webview
       sha256: "894aa7d98ebdc2d86d79ac2309173043dec7f102575de87bf9626ddb26104e49"
@@ -454,7 +454,7 @@ packages:
     source: hosted
     version: "2.3.2"
   html:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: html
       sha256: "3a7812d5bcd2894edf53dfaf8cd640876cf6cef50a8f238745c8b8120ea74d3a"

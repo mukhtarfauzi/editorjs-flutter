@@ -5,7 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:editorjs_flutter/src/model/editor_js_data.dart';
 import 'package:editorjs_flutter/src/model/editor_js_view_styles.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 class EditorJSView extends StatefulWidget {
   final EditorJSData? data;

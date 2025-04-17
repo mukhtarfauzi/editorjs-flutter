@@ -176,17 +176,9 @@ class EditorJSViewState extends State<EditorJSView> {
             items.add(Image.network(element.data!.file!.url!));
             break;
           case "raw":
-            print("EDITORJSFLUTTER: ${element.data?.html}");
             if (element.data?.html != null) {
-              bool webView = true;
-              bool webViewJs = true;
               items.add(HtmlWidget(
                 element.data!.html!,
-                factoryBuilder: () => _WidgetFactory(
-                  webView: webView,
-                  webViewJs: webViewJs,
-                ),
-                rebuildTriggers: [webView, webViewJs],
                 onTapUrl: widget.onLinkTap,
               ));
             }
@@ -301,19 +293,6 @@ class EditorBlockRenderer extends StatelessWidget {
       }).toList(),
     );
   }
-}
-
-class _WidgetFactory extends WidgetFactory {
-  @override
-  final bool webView;
-
-  @override
-  final bool webViewJs;
-
-  _WidgetFactory({
-    required this.webView,
-    required this.webViewJs,
-  });
 }
 
 class VideoPlayerBlock extends StatefulWidget {

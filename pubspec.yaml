@@ -1,6 +1,6 @@
 name: editorjs_flutter
 description: A new Flutter package project.
-version: 0.1.0
+version: 0.2.0
 homepage: https://github.com/RZEROSTERN/editorjs-flutter
 
 environment:
@@ -11,10 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_widget_from_html: ^0.16.0
-  flutter_widget_from_html_core: ^0.16.0
-  fwfh_chewie: any
-  fwfh_webview: any
-  html: any
   freezed_annotation: ^2.4.4
   image_picker: ^1.0.7
   json_annotation: ^4.9.0

@@ -10,6 +10,7 @@ _$EditorJSBlockDataImpl _$$EditorJSBlockDataImplFromJson(
         Map<String, dynamic> json) =>
     _$EditorJSBlockDataImpl(
       text: json['text'] as String?,
+      html: json['html'] as String?,
       level: (json['level'] as num?)?.toInt(),
       style: json['style'] as String?,
       items:
@@ -27,6 +28,7 @@ Map<String, dynamic> _$$EditorJSBlockDataImplToJson(
         _$EditorJSBlockDataImpl instance) =>
     <String, dynamic>{
       'text': instance.text,
+      'html': instance.html,
       'level': instance.level,
       'style': instance.style,
       'items': instance.items,

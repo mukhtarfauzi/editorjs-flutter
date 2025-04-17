@@ -8,6 +8,7 @@ part 'editor_js_block_data.g.dart';
 class EditorJSBlockData with _$EditorJSBlockData {
   const factory EditorJSBlockData({
     String? text,
+    String? html,
     int? level,
     String? style,
     List<String>? items,

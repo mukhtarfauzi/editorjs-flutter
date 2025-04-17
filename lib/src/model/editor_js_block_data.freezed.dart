@@ -21,6 +21,7 @@ EditorJSBlockData _$EditorJSBlockDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$EditorJSBlockData {
   String? get text => throw _privateConstructorUsedError;
+  String? get html => throw _privateConstructorUsedError;
   int? get level => throw _privateConstructorUsedError;
   String? get style => throw _privateConstructorUsedError;
   List<String>? get items => throw _privateConstructorUsedError;
@@ -48,6 +49,7 @@ abstract class $EditorJSBlockDataCopyWith<$Res> {
   @useResult
   $Res call(
       {String? text,
+      String? html,
       int? level,
       String? style,
       List<String>? items,
@@ -76,6 +78,7 @@ class _$EditorJSBlockDataCopyWithImpl<$Res, $Val extends EditorJSBlockData>
   @override
   $Res call({
     Object? text = freezed,
+    Object? html = freezed,
     Object? level = freezed,
     Object? style = freezed,
     Object? items = freezed,
@@ -89,6 +92,10 @@ class _$EditorJSBlockDataCopyWithImpl<$Res, $Val extends EditorJSBlockData>
       text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
+              as String?,
+      html: freezed == html
+          ? _value.html
+          : html // ignore: cast_nullable_to_non_nullable
               as String?,
       level: freezed == level
           ? _value.level
@@ -150,6 +157,7 @@ abstract class _$$EditorJSBlockDataImplCopyWith<$Res>
   @useResult
   $Res call(
       {String? text,
+      String? html,
       int? level,
       String? style,
       List<String>? items,
@@ -177,6 +185,7 @@ class __$$EditorJSBlockDataImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? text = freezed,
+    Object? html = freezed,
     Object? level = freezed,
     Object? style = freezed,
     Object? items = freezed,
@@ -190,6 +199,10 @@ class __$$EditorJSBlockDataImplCopyWithImpl<$Res>
       text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
+              as String?,
+      html: freezed == html
+          ? _value.html
+          : html // ignore: cast_nullable_to_non_nullable
               as String?,
       level: freezed == level
           ? _value.level
@@ -232,6 +245,7 @@ class __$$EditorJSBlockDataImplCopyWithImpl<$Res>
 class _$EditorJSBlockDataImpl implements _EditorJSBlockData {
   const _$EditorJSBlockDataImpl(
       {this.text,
+      this.html,
       this.level,
       this.style,
       final List<String>? items,
@@ -247,6 +261,8 @@ class _$EditorJSBlockDataImpl implements _EditorJSBlockData {
 
   @override
   final String? text;
+  @override
+  final String? html;
   @override
   final int? level;
   @override
@@ -274,7 +290,7 @@ class _$EditorJSBlockDataImpl implements _EditorJSBlockData {
 
   @override
   String toString() {
-    return 'EditorJSBlockData(text: $text, level: $level, style: $style, items: $items, file: $file, caption: $caption, withBorder: $withBorder, stretched: $stretched, withBackground: $withBackground)';
+    return 'EditorJSBlockData(text: $text, html: $html, level: $level, style: $style, items: $items, file: $file, caption: $caption, withBorder: $withBorder, stretched: $stretched, withBackground: $withBackground)';
   }
 
   @override
@@ -283,6 +299,7 @@ class _$EditorJSBlockDataImpl implements _EditorJSBlockData {
         (other.runtimeType == runtimeType &&
             other is _$EditorJSBlockDataImpl &&
             (identical(other.text, text) || other.text == text) &&
+            (identical(other.html, html) || other.html == html) &&
             (identical(other.level, level) || other.level == level) &&
             (identical(other.style, style) || other.style == style) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
@@ -301,6 +318,7 @@ class _$EditorJSBlockDataImpl implements _EditorJSBlockData {
   int get hashCode => Object.hash(
       runtimeType,
       text,
+      html,
       level,
       style,
       const DeepCollectionEquality().hash(_items),
@@ -330,6 +348,7 @@ class _$EditorJSBlockDataImpl implements _EditorJSBlockData {
 abstract class _EditorJSBlockData implements EditorJSBlockData {
   const factory _EditorJSBlockData(
       {final String? text,
+      final String? html,
       final int? level,
       final String? style,
       final List<String>? items,
@@ -344,6 +363,8 @@ abstract class _EditorJSBlockData implements EditorJSBlockData {
 
   @override
   String? get text;
+  @override
+  String? get html;
   @override
   int? get level;
   @override

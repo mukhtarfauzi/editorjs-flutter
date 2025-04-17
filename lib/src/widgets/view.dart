@@ -175,6 +175,12 @@ class EditorJSViewState extends State<EditorJSView> {
           case "image":
             items.add(Image.network(element.data!.file!.url!));
             break;
+          case "raw":
+            HtmlWidget(
+              element.data!.html!,
+              onTapUrl: widget.onLinkTap,
+            );
+            break;
         }
         items.add(const SizedBox(height: 10));
       },

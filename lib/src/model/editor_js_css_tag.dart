@@ -4,7 +4,7 @@ part 'editor_js_css_tag.freezed.dart';
 part 'editor_js_css_tag.g.dart';
 
 @freezed
-class EditorJSCSSTag with _$EditorJSCSSTag {
+sealed class EditorJSCSSTag with _$EditorJSCSSTag {
   const factory EditorJSCSSTag({
     @JsonKey(includeToJson: false, includeIfNull: false) String? tag,
     @JsonKey(includeIfNull: false) String? backgroundColor,

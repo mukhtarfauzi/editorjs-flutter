@@ -5,7 +5,7 @@ part 'editor_js_view_styles.freezed.dart';
 part 'editor_js_view_styles.g.dart';
 
 @freezed
-class EditorJSViewStyles with _$EditorJSViewStyles {
+sealed class EditorJSViewStyles with _$EditorJSViewStyles {
   const factory EditorJSViewStyles({
     List<EditorJSCSSTag>? cssTags,
     String? defaultFont,

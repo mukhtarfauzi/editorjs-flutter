@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,82 +10,58 @@ part of 'editor_js_block_file.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-EditorJSBlockFile _$EditorJSBlockFileFromJson(Map<String, dynamic> json) {
-  return _EditorJSBlockFile.fromJson(json);
-}
 
 /// @nodoc
 mixin _$EditorJSBlockFile {
-  String? get url => throw _privateConstructorUsedError;
-
-  /// Serializes this EditorJSBlockFile to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  String? get url;
 
   /// Create a copy of EditorJSBlockFile
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $EditorJSBlockFileCopyWith<EditorJSBlockFile> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $EditorJSBlockFileCopyWith<$Res> {
-  factory $EditorJSBlockFileCopyWith(
-          EditorJSBlockFile value, $Res Function(EditorJSBlockFile) then) =
-      _$EditorJSBlockFileCopyWithImpl<$Res, EditorJSBlockFile>;
-  @useResult
-  $Res call({String? url});
-}
-
-/// @nodoc
-class _$EditorJSBlockFileCopyWithImpl<$Res, $Val extends EditorJSBlockFile>
-    implements $EditorJSBlockFileCopyWith<$Res> {
-  _$EditorJSBlockFileCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of EditorJSBlockFile
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $EditorJSBlockFileCopyWith<EditorJSBlockFile> get copyWith =>
+      _$EditorJSBlockFileCopyWithImpl<EditorJSBlockFile>(
+          this as EditorJSBlockFile, _$identity);
+
+  /// Serializes this EditorJSBlockFile to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? url = freezed,
-  }) {
-    return _then(_value.copyWith(
-      url: freezed == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is EditorJSBlockFile &&
+            (identical(other.url, url) || other.url == url));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, url);
+
+  @override
+  String toString() {
+    return 'EditorJSBlockFile(url: $url)';
   }
 }
 
 /// @nodoc
-abstract class _$$EditorJSBlockFileImplCopyWith<$Res>
-    implements $EditorJSBlockFileCopyWith<$Res> {
-  factory _$$EditorJSBlockFileImplCopyWith(_$EditorJSBlockFileImpl value,
-          $Res Function(_$EditorJSBlockFileImpl) then) =
-      __$$EditorJSBlockFileImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $EditorJSBlockFileCopyWith<$Res> {
+  factory $EditorJSBlockFileCopyWith(
+          EditorJSBlockFile value, $Res Function(EditorJSBlockFile) _then) =
+      _$EditorJSBlockFileCopyWithImpl;
   @useResult
   $Res call({String? url});
 }
 
 /// @nodoc
-class __$$EditorJSBlockFileImplCopyWithImpl<$Res>
-    extends _$EditorJSBlockFileCopyWithImpl<$Res, _$EditorJSBlockFileImpl>
-    implements _$$EditorJSBlockFileImplCopyWith<$Res> {
-  __$$EditorJSBlockFileImplCopyWithImpl(_$EditorJSBlockFileImpl _value,
-      $Res Function(_$EditorJSBlockFileImpl) _then)
-      : super(_value, _then);
+class _$EditorJSBlockFileCopyWithImpl<$Res>
+    implements $EditorJSBlockFileCopyWith<$Res> {
+  _$EditorJSBlockFileCopyWithImpl(this._self, this._then);
+
+  final EditorJSBlockFile _self;
+  final $Res Function(EditorJSBlockFile) _then;
 
   /// Create a copy of EditorJSBlockFile
   /// with the given fields replaced by the non-null parameter values.
@@ -93,9 +70,9 @@ class __$$EditorJSBlockFileImplCopyWithImpl<$Res>
   $Res call({
     Object? url = freezed,
   }) {
-    return _then(_$EditorJSBlockFileImpl(
+    return _then(_self.copyWith(
       url: freezed == url
-          ? _value.url
+          ? _self.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -104,25 +81,34 @@ class __$$EditorJSBlockFileImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$EditorJSBlockFileImpl implements _EditorJSBlockFile {
-  const _$EditorJSBlockFileImpl({this.url});
-
-  factory _$EditorJSBlockFileImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EditorJSBlockFileImplFromJson(json);
+class _EditorJSBlockFile implements EditorJSBlockFile {
+  const _EditorJSBlockFile({this.url});
+  factory _EditorJSBlockFile.fromJson(Map<String, dynamic> json) =>
+      _$EditorJSBlockFileFromJson(json);
 
   @override
   final String? url;
 
+  /// Create a copy of EditorJSBlockFile
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'EditorJSBlockFile(url: $url)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$EditorJSBlockFileCopyWith<_EditorJSBlockFile> get copyWith =>
+      __$EditorJSBlockFileCopyWithImpl<_EditorJSBlockFile>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$EditorJSBlockFileToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EditorJSBlockFileImpl &&
+            other is _EditorJSBlockFile &&
             (identical(other.url, url) || other.url == url));
   }
 
@@ -130,37 +116,45 @@ class _$EditorJSBlockFileImpl implements _EditorJSBlockFile {
   @override
   int get hashCode => Object.hash(runtimeType, url);
 
-  /// Create a copy of EditorJSBlockFile
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$EditorJSBlockFileImplCopyWith<_$EditorJSBlockFileImpl> get copyWith =>
-      __$$EditorJSBlockFileImplCopyWithImpl<_$EditorJSBlockFileImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EditorJSBlockFileImplToJson(
-      this,
-    );
+  String toString() {
+    return 'EditorJSBlockFile(url: $url)';
   }
 }
 
-abstract class _EditorJSBlockFile implements EditorJSBlockFile {
-  const factory _EditorJSBlockFile({final String? url}) =
-      _$EditorJSBlockFileImpl;
-
-  factory _EditorJSBlockFile.fromJson(Map<String, dynamic> json) =
-      _$EditorJSBlockFileImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$EditorJSBlockFileCopyWith<$Res>
+    implements $EditorJSBlockFileCopyWith<$Res> {
+  factory _$EditorJSBlockFileCopyWith(
+          _EditorJSBlockFile value, $Res Function(_EditorJSBlockFile) _then) =
+      __$EditorJSBlockFileCopyWithImpl;
   @override
-  String? get url;
+  @useResult
+  $Res call({String? url});
+}
+
+/// @nodoc
+class __$EditorJSBlockFileCopyWithImpl<$Res>
+    implements _$EditorJSBlockFileCopyWith<$Res> {
+  __$EditorJSBlockFileCopyWithImpl(this._self, this._then);
+
+  final _EditorJSBlockFile _self;
+  final $Res Function(_EditorJSBlockFile) _then;
 
   /// Create a copy of EditorJSBlockFile
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$EditorJSBlockFileImplCopyWith<_$EditorJSBlockFileImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? url = freezed,
+  }) {
+    return _then(_EditorJSBlockFile(
+      url: freezed == url
+          ? _self.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
+
+// dart format on

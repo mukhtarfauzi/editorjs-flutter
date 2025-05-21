@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,43 +10,79 @@ part of 'editor_js_block_data.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-EditorJSBlockData _$EditorJSBlockDataFromJson(Map<String, dynamic> json) {
-  return _EditorJSBlockData.fromJson(json);
-}
 
 /// @nodoc
 mixin _$EditorJSBlockData {
-  String? get text => throw _privateConstructorUsedError;
-  String? get html => throw _privateConstructorUsedError;
-  int? get level => throw _privateConstructorUsedError;
-  String? get style => throw _privateConstructorUsedError;
-  List<String>? get items => throw _privateConstructorUsedError;
-  EditorJSBlockFile? get file => throw _privateConstructorUsedError;
-  String? get caption => throw _privateConstructorUsedError;
-  bool? get withBorder => throw _privateConstructorUsedError;
-  bool? get stretched => throw _privateConstructorUsedError;
-  bool? get withBackground => throw _privateConstructorUsedError;
-
-  /// Serializes this EditorJSBlockData to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  String? get text;
+  String? get html;
+  int? get level;
+  String? get style;
+  List<String>? get items;
+  EditorJSBlockFile? get file;
+  String? get caption;
+  bool? get withBorder;
+  bool? get stretched;
+  bool? get withBackground;
 
   /// Create a copy of EditorJSBlockData
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $EditorJSBlockDataCopyWith<EditorJSBlockData> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$EditorJSBlockDataCopyWithImpl<EditorJSBlockData>(
+          this as EditorJSBlockData, _$identity);
+
+  /// Serializes this EditorJSBlockData to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is EditorJSBlockData &&
+            (identical(other.text, text) || other.text == text) &&
+            (identical(other.html, html) || other.html == html) &&
+            (identical(other.level, level) || other.level == level) &&
+            (identical(other.style, style) || other.style == style) &&
+            const DeepCollectionEquality().equals(other.items, items) &&
+            (identical(other.file, file) || other.file == file) &&
+            (identical(other.caption, caption) || other.caption == caption) &&
+            (identical(other.withBorder, withBorder) ||
+                other.withBorder == withBorder) &&
+            (identical(other.stretched, stretched) ||
+                other.stretched == stretched) &&
+            (identical(other.withBackground, withBackground) ||
+                other.withBackground == withBackground));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      text,
+      html,
+      level,
+      style,
+      const DeepCollectionEquality().hash(items),
+      file,
+      caption,
+      withBorder,
+      stretched,
+      withBackground);
+
+  @override
+  String toString() {
+    return 'EditorJSBlockData(text: $text, html: $html, level: $level, style: $style, items: $items, file: $file, caption: $caption, withBorder: $withBorder, stretched: $stretched, withBackground: $withBackground)';
+  }
 }
 
 /// @nodoc
-abstract class $EditorJSBlockDataCopyWith<$Res> {
+abstract mixin class $EditorJSBlockDataCopyWith<$Res> {
   factory $EditorJSBlockDataCopyWith(
-          EditorJSBlockData value, $Res Function(EditorJSBlockData) then) =
-      _$EditorJSBlockDataCopyWithImpl<$Res, EditorJSBlockData>;
+          EditorJSBlockData value, $Res Function(EditorJSBlockData) _then) =
+      _$EditorJSBlockDataCopyWithImpl;
   @useResult
   $Res call(
       {String? text,
@@ -63,14 +100,12 @@ abstract class $EditorJSBlockDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$EditorJSBlockDataCopyWithImpl<$Res, $Val extends EditorJSBlockData>
+class _$EditorJSBlockDataCopyWithImpl<$Res>
     implements $EditorJSBlockDataCopyWith<$Res> {
-  _$EditorJSBlockDataCopyWithImpl(this._value, this._then);
+  _$EditorJSBlockDataCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final EditorJSBlockData _self;
+  final $Res Function(EditorJSBlockData) _then;
 
   /// Create a copy of EditorJSBlockData
   /// with the given fields replaced by the non-null parameter values.
@@ -88,48 +123,48 @@ class _$EditorJSBlockDataCopyWithImpl<$Res, $Val extends EditorJSBlockData>
     Object? stretched = freezed,
     Object? withBackground = freezed,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       text: freezed == text
-          ? _value.text
+          ? _self.text
           : text // ignore: cast_nullable_to_non_nullable
               as String?,
       html: freezed == html
-          ? _value.html
+          ? _self.html
           : html // ignore: cast_nullable_to_non_nullable
               as String?,
       level: freezed == level
-          ? _value.level
+          ? _self.level
           : level // ignore: cast_nullable_to_non_nullable
               as int?,
       style: freezed == style
-          ? _value.style
+          ? _self.style
           : style // ignore: cast_nullable_to_non_nullable
               as String?,
       items: freezed == items
-          ? _value.items
+          ? _self.items
           : items // ignore: cast_nullable_to_non_nullable
               as List<String>?,
       file: freezed == file
-          ? _value.file
+          ? _self.file
           : file // ignore: cast_nullable_to_non_nullable
               as EditorJSBlockFile?,
       caption: freezed == caption
-          ? _value.caption
+          ? _self.caption
           : caption // ignore: cast_nullable_to_non_nullable
               as String?,
       withBorder: freezed == withBorder
-          ? _value.withBorder
+          ? _self.withBorder
           : withBorder // ignore: cast_nullable_to_non_nullable
               as bool?,
       stretched: freezed == stretched
-          ? _value.stretched
+          ? _self.stretched
           : stretched // ignore: cast_nullable_to_non_nullable
               as bool?,
       withBackground: freezed == withBackground
-          ? _value.withBackground
+          ? _self.withBackground
           : withBackground // ignore: cast_nullable_to_non_nullable
               as bool?,
-    ) as $Val);
+    ));
   }
 
   /// Create a copy of EditorJSBlockData
@@ -137,113 +172,20 @@ class _$EditorJSBlockDataCopyWithImpl<$Res, $Val extends EditorJSBlockData>
   @override
   @pragma('vm:prefer-inline')
   $EditorJSBlockFileCopyWith<$Res>? get file {
-    if (_value.file == null) {
+    if (_self.file == null) {
       return null;
     }
 
-    return $EditorJSBlockFileCopyWith<$Res>(_value.file!, (value) {
-      return _then(_value.copyWith(file: value) as $Val);
+    return $EditorJSBlockFileCopyWith<$Res>(_self.file!, (value) {
+      return _then(_self.copyWith(file: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$EditorJSBlockDataImplCopyWith<$Res>
-    implements $EditorJSBlockDataCopyWith<$Res> {
-  factory _$$EditorJSBlockDataImplCopyWith(_$EditorJSBlockDataImpl value,
-          $Res Function(_$EditorJSBlockDataImpl) then) =
-      __$$EditorJSBlockDataImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String? text,
-      String? html,
-      int? level,
-      String? style,
-      List<String>? items,
-      EditorJSBlockFile? file,
-      String? caption,
-      bool? withBorder,
-      bool? stretched,
-      bool? withBackground});
-
-  @override
-  $EditorJSBlockFileCopyWith<$Res>? get file;
-}
-
-/// @nodoc
-class __$$EditorJSBlockDataImplCopyWithImpl<$Res>
-    extends _$EditorJSBlockDataCopyWithImpl<$Res, _$EditorJSBlockDataImpl>
-    implements _$$EditorJSBlockDataImplCopyWith<$Res> {
-  __$$EditorJSBlockDataImplCopyWithImpl(_$EditorJSBlockDataImpl _value,
-      $Res Function(_$EditorJSBlockDataImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of EditorJSBlockData
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? text = freezed,
-    Object? html = freezed,
-    Object? level = freezed,
-    Object? style = freezed,
-    Object? items = freezed,
-    Object? file = freezed,
-    Object? caption = freezed,
-    Object? withBorder = freezed,
-    Object? stretched = freezed,
-    Object? withBackground = freezed,
-  }) {
-    return _then(_$EditorJSBlockDataImpl(
-      text: freezed == text
-          ? _value.text
-          : text // ignore: cast_nullable_to_non_nullable
-              as String?,
-      html: freezed == html
-          ? _value.html
-          : html // ignore: cast_nullable_to_non_nullable
-              as String?,
-      level: freezed == level
-          ? _value.level
-          : level // ignore: cast_nullable_to_non_nullable
-              as int?,
-      style: freezed == style
-          ? _value.style
-          : style // ignore: cast_nullable_to_non_nullable
-              as String?,
-      items: freezed == items
-          ? _value._items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      file: freezed == file
-          ? _value.file
-          : file // ignore: cast_nullable_to_non_nullable
-              as EditorJSBlockFile?,
-      caption: freezed == caption
-          ? _value.caption
-          : caption // ignore: cast_nullable_to_non_nullable
-              as String?,
-      withBorder: freezed == withBorder
-          ? _value.withBorder
-          : withBorder // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      stretched: freezed == stretched
-          ? _value.stretched
-          : stretched // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      withBackground: freezed == withBackground
-          ? _value.withBackground
-          : withBackground // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ));
-  }
-}
-
-/// @nodoc
 @JsonSerializable()
-class _$EditorJSBlockDataImpl implements _EditorJSBlockData {
-  const _$EditorJSBlockDataImpl(
+class _EditorJSBlockData implements EditorJSBlockData {
+  const _EditorJSBlockData(
       {this.text,
       this.html,
       this.level,
@@ -255,9 +197,8 @@ class _$EditorJSBlockDataImpl implements _EditorJSBlockData {
       this.stretched,
       this.withBackground})
       : _items = items;
-
-  factory _$EditorJSBlockDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EditorJSBlockDataImplFromJson(json);
+  factory _EditorJSBlockData.fromJson(Map<String, dynamic> json) =>
+      _$EditorJSBlockDataFromJson(json);
 
   @override
   final String? text;
@@ -288,16 +229,26 @@ class _$EditorJSBlockDataImpl implements _EditorJSBlockData {
   @override
   final bool? withBackground;
 
+  /// Create a copy of EditorJSBlockData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'EditorJSBlockData(text: $text, html: $html, level: $level, style: $style, items: $items, file: $file, caption: $caption, withBorder: $withBorder, stretched: $stretched, withBackground: $withBackground)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$EditorJSBlockDataCopyWith<_EditorJSBlockData> get copyWith =>
+      __$EditorJSBlockDataCopyWithImpl<_EditorJSBlockData>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$EditorJSBlockDataToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EditorJSBlockDataImpl &&
+            other is _EditorJSBlockData &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.html, html) || other.html == html) &&
             (identical(other.level, level) || other.level == level) &&
@@ -328,64 +279,117 @@ class _$EditorJSBlockDataImpl implements _EditorJSBlockData {
       stretched,
       withBackground);
 
-  /// Create a copy of EditorJSBlockData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$EditorJSBlockDataImplCopyWith<_$EditorJSBlockDataImpl> get copyWith =>
-      __$$EditorJSBlockDataImplCopyWithImpl<_$EditorJSBlockDataImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EditorJSBlockDataImplToJson(
-      this,
-    );
+  String toString() {
+    return 'EditorJSBlockData(text: $text, html: $html, level: $level, style: $style, items: $items, file: $file, caption: $caption, withBorder: $withBorder, stretched: $stretched, withBackground: $withBackground)';
   }
 }
 
-abstract class _EditorJSBlockData implements EditorJSBlockData {
-  const factory _EditorJSBlockData(
-      {final String? text,
-      final String? html,
-      final int? level,
-      final String? style,
-      final List<String>? items,
-      final EditorJSBlockFile? file,
-      final String? caption,
-      final bool? withBorder,
-      final bool? stretched,
-      final bool? withBackground}) = _$EditorJSBlockDataImpl;
+/// @nodoc
+abstract mixin class _$EditorJSBlockDataCopyWith<$Res>
+    implements $EditorJSBlockDataCopyWith<$Res> {
+  factory _$EditorJSBlockDataCopyWith(
+          _EditorJSBlockData value, $Res Function(_EditorJSBlockData) _then) =
+      __$EditorJSBlockDataCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String? text,
+      String? html,
+      int? level,
+      String? style,
+      List<String>? items,
+      EditorJSBlockFile? file,
+      String? caption,
+      bool? withBorder,
+      bool? stretched,
+      bool? withBackground});
 
-  factory _EditorJSBlockData.fromJson(Map<String, dynamic> json) =
-      _$EditorJSBlockDataImpl.fromJson;
+  @override
+  $EditorJSBlockFileCopyWith<$Res>? get file;
+}
 
-  @override
-  String? get text;
-  @override
-  String? get html;
-  @override
-  int? get level;
-  @override
-  String? get style;
-  @override
-  List<String>? get items;
-  @override
-  EditorJSBlockFile? get file;
-  @override
-  String? get caption;
-  @override
-  bool? get withBorder;
-  @override
-  bool? get stretched;
-  @override
-  bool? get withBackground;
+/// @nodoc
+class __$EditorJSBlockDataCopyWithImpl<$Res>
+    implements _$EditorJSBlockDataCopyWith<$Res> {
+  __$EditorJSBlockDataCopyWithImpl(this._self, this._then);
+
+  final _EditorJSBlockData _self;
+  final $Res Function(_EditorJSBlockData) _then;
 
   /// Create a copy of EditorJSBlockData
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$EditorJSBlockDataImplCopyWith<_$EditorJSBlockDataImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? text = freezed,
+    Object? html = freezed,
+    Object? level = freezed,
+    Object? style = freezed,
+    Object? items = freezed,
+    Object? file = freezed,
+    Object? caption = freezed,
+    Object? withBorder = freezed,
+    Object? stretched = freezed,
+    Object? withBackground = freezed,
+  }) {
+    return _then(_EditorJSBlockData(
+      text: freezed == text
+          ? _self.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String?,
+      html: freezed == html
+          ? _self.html
+          : html // ignore: cast_nullable_to_non_nullable
+              as String?,
+      level: freezed == level
+          ? _self.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as int?,
+      style: freezed == style
+          ? _self.style
+          : style // ignore: cast_nullable_to_non_nullable
+              as String?,
+      items: freezed == items
+          ? _self._items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      file: freezed == file
+          ? _self.file
+          : file // ignore: cast_nullable_to_non_nullable
+              as EditorJSBlockFile?,
+      caption: freezed == caption
+          ? _self.caption
+          : caption // ignore: cast_nullable_to_non_nullable
+              as String?,
+      withBorder: freezed == withBorder
+          ? _self.withBorder
+          : withBorder // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      stretched: freezed == stretched
+          ? _self.stretched
+          : stretched // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      withBackground: freezed == withBackground
+          ? _self.withBackground
+          : withBackground // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+
+  /// Create a copy of EditorJSBlockData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $EditorJSBlockFileCopyWith<$Res>? get file {
+    if (_self.file == null) {
+      return null;
+    }
+
+    return $EditorJSBlockFileCopyWith<$Res>(_self.file!, (value) {
+      return _then(_self.copyWith(file: value));
+    });
+  }
 }
+
+// dart format on

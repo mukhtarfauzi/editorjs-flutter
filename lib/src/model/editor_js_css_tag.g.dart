@@ -6,26 +6,17 @@ part of 'editor_js_css_tag.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$EditorJSCSSTagImpl _$$EditorJSCSSTagImplFromJson(Map<String, dynamic> json) =>
-    _$EditorJSCSSTagImpl(
+_EditorJSCSSTag _$EditorJSCSSTagFromJson(Map<String, dynamic> json) =>
+    _EditorJSCSSTag(
       tag: json['tag'] as String?,
       backgroundColor: json['backgroundColor'] as String?,
       color: json['color'] as String?,
       padding: (json['padding'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$$EditorJSCSSTagImplToJson(
-    _$EditorJSCSSTagImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('backgroundColor', instance.backgroundColor);
-  writeNotNull('color', instance.color);
-  writeNotNull('padding', instance.padding);
-  return val;
-}
+Map<String, dynamic> _$EditorJSCSSTagToJson(_EditorJSCSSTag instance) =>
+    <String, dynamic>{
+      if (instance.backgroundColor case final value?) 'backgroundColor': value,
+      if (instance.color case final value?) 'color': value,
+      if (instance.padding case final value?) 'padding': value,
+    };

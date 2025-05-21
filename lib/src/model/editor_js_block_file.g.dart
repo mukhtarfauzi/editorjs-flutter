@@ -6,14 +6,12 @@ part of 'editor_js_block_file.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$EditorJSBlockFileImpl _$$EditorJSBlockFileImplFromJson(
-        Map<String, dynamic> json) =>
-    _$EditorJSBlockFileImpl(
+_EditorJSBlockFile _$EditorJSBlockFileFromJson(Map<String, dynamic> json) =>
+    _EditorJSBlockFile(
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$$EditorJSBlockFileImplToJson(
-        _$EditorJSBlockFileImpl instance) =>
+Map<String, dynamic> _$EditorJSBlockFileToJson(_EditorJSBlockFile instance) =>
     <String, dynamic>{
       'url': instance.url,
     };

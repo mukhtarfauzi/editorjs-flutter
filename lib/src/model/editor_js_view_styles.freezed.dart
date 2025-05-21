@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,88 +10,62 @@ part of 'editor_js_view_styles.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-EditorJSViewStyles _$EditorJSViewStylesFromJson(Map<String, dynamic> json) {
-  return _EditorJSViewStyles.fromJson(json);
-}
 
 /// @nodoc
 mixin _$EditorJSViewStyles {
-  List<EditorJSCSSTag>? get cssTags => throw _privateConstructorUsedError;
-  String? get defaultFont => throw _privateConstructorUsedError;
-
-  /// Serializes this EditorJSViewStyles to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  List<EditorJSCSSTag>? get cssTags;
+  String? get defaultFont;
 
   /// Create a copy of EditorJSViewStyles
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $EditorJSViewStylesCopyWith<EditorJSViewStyles> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $EditorJSViewStylesCopyWith<$Res> {
-  factory $EditorJSViewStylesCopyWith(
-          EditorJSViewStyles value, $Res Function(EditorJSViewStyles) then) =
-      _$EditorJSViewStylesCopyWithImpl<$Res, EditorJSViewStyles>;
-  @useResult
-  $Res call({List<EditorJSCSSTag>? cssTags, String? defaultFont});
-}
-
-/// @nodoc
-class _$EditorJSViewStylesCopyWithImpl<$Res, $Val extends EditorJSViewStyles>
-    implements $EditorJSViewStylesCopyWith<$Res> {
-  _$EditorJSViewStylesCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of EditorJSViewStyles
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $EditorJSViewStylesCopyWith<EditorJSViewStyles> get copyWith =>
+      _$EditorJSViewStylesCopyWithImpl<EditorJSViewStyles>(
+          this as EditorJSViewStyles, _$identity);
+
+  /// Serializes this EditorJSViewStyles to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? cssTags = freezed,
-    Object? defaultFont = freezed,
-  }) {
-    return _then(_value.copyWith(
-      cssTags: freezed == cssTags
-          ? _value.cssTags
-          : cssTags // ignore: cast_nullable_to_non_nullable
-              as List<EditorJSCSSTag>?,
-      defaultFont: freezed == defaultFont
-          ? _value.defaultFont
-          : defaultFont // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is EditorJSViewStyles &&
+            const DeepCollectionEquality().equals(other.cssTags, cssTags) &&
+            (identical(other.defaultFont, defaultFont) ||
+                other.defaultFont == defaultFont));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(cssTags), defaultFont);
+
+  @override
+  String toString() {
+    return 'EditorJSViewStyles(cssTags: $cssTags, defaultFont: $defaultFont)';
   }
 }
 
 /// @nodoc
-abstract class _$$EditorJSViewStylesImplCopyWith<$Res>
-    implements $EditorJSViewStylesCopyWith<$Res> {
-  factory _$$EditorJSViewStylesImplCopyWith(_$EditorJSViewStylesImpl value,
-          $Res Function(_$EditorJSViewStylesImpl) then) =
-      __$$EditorJSViewStylesImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $EditorJSViewStylesCopyWith<$Res> {
+  factory $EditorJSViewStylesCopyWith(
+          EditorJSViewStyles value, $Res Function(EditorJSViewStyles) _then) =
+      _$EditorJSViewStylesCopyWithImpl;
   @useResult
   $Res call({List<EditorJSCSSTag>? cssTags, String? defaultFont});
 }
 
 /// @nodoc
-class __$$EditorJSViewStylesImplCopyWithImpl<$Res>
-    extends _$EditorJSViewStylesCopyWithImpl<$Res, _$EditorJSViewStylesImpl>
-    implements _$$EditorJSViewStylesImplCopyWith<$Res> {
-  __$$EditorJSViewStylesImplCopyWithImpl(_$EditorJSViewStylesImpl _value,
-      $Res Function(_$EditorJSViewStylesImpl) _then)
-      : super(_value, _then);
+class _$EditorJSViewStylesCopyWithImpl<$Res>
+    implements $EditorJSViewStylesCopyWith<$Res> {
+  _$EditorJSViewStylesCopyWithImpl(this._self, this._then);
+
+  final EditorJSViewStyles _self;
+  final $Res Function(EditorJSViewStyles) _then;
 
   /// Create a copy of EditorJSViewStyles
   /// with the given fields replaced by the non-null parameter values.
@@ -100,13 +75,13 @@ class __$$EditorJSViewStylesImplCopyWithImpl<$Res>
     Object? cssTags = freezed,
     Object? defaultFont = freezed,
   }) {
-    return _then(_$EditorJSViewStylesImpl(
+    return _then(_self.copyWith(
       cssTags: freezed == cssTags
-          ? _value._cssTags
+          ? _self.cssTags
           : cssTags // ignore: cast_nullable_to_non_nullable
               as List<EditorJSCSSTag>?,
       defaultFont: freezed == defaultFont
-          ? _value.defaultFont
+          ? _self.defaultFont
           : defaultFont // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -115,13 +90,12 @@ class __$$EditorJSViewStylesImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$EditorJSViewStylesImpl implements _EditorJSViewStyles {
-  const _$EditorJSViewStylesImpl(
+class _EditorJSViewStyles implements EditorJSViewStyles {
+  const _EditorJSViewStyles(
       {final List<EditorJSCSSTag>? cssTags, this.defaultFont})
       : _cssTags = cssTags;
-
-  factory _$EditorJSViewStylesImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EditorJSViewStylesImplFromJson(json);
+  factory _EditorJSViewStyles.fromJson(Map<String, dynamic> json) =>
+      _$EditorJSViewStylesFromJson(json);
 
   final List<EditorJSCSSTag>? _cssTags;
   @override
@@ -136,16 +110,26 @@ class _$EditorJSViewStylesImpl implements _EditorJSViewStyles {
   @override
   final String? defaultFont;
 
+  /// Create a copy of EditorJSViewStyles
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'EditorJSViewStyles(cssTags: $cssTags, defaultFont: $defaultFont)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$EditorJSViewStylesCopyWith<_EditorJSViewStyles> get copyWith =>
+      __$EditorJSViewStylesCopyWithImpl<_EditorJSViewStyles>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$EditorJSViewStylesToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EditorJSViewStylesImpl &&
+            other is _EditorJSViewStyles &&
             const DeepCollectionEquality().equals(other._cssTags, _cssTags) &&
             (identical(other.defaultFont, defaultFont) ||
                 other.defaultFont == defaultFont));
@@ -156,40 +140,50 @@ class _$EditorJSViewStylesImpl implements _EditorJSViewStyles {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_cssTags), defaultFont);
 
-  /// Create a copy of EditorJSViewStyles
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$EditorJSViewStylesImplCopyWith<_$EditorJSViewStylesImpl> get copyWith =>
-      __$$EditorJSViewStylesImplCopyWithImpl<_$EditorJSViewStylesImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EditorJSViewStylesImplToJson(
-      this,
-    );
+  String toString() {
+    return 'EditorJSViewStyles(cssTags: $cssTags, defaultFont: $defaultFont)';
   }
 }
 
-abstract class _EditorJSViewStyles implements EditorJSViewStyles {
-  const factory _EditorJSViewStyles(
-      {final List<EditorJSCSSTag>? cssTags,
-      final String? defaultFont}) = _$EditorJSViewStylesImpl;
-
-  factory _EditorJSViewStyles.fromJson(Map<String, dynamic> json) =
-      _$EditorJSViewStylesImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$EditorJSViewStylesCopyWith<$Res>
+    implements $EditorJSViewStylesCopyWith<$Res> {
+  factory _$EditorJSViewStylesCopyWith(
+          _EditorJSViewStyles value, $Res Function(_EditorJSViewStyles) _then) =
+      __$EditorJSViewStylesCopyWithImpl;
   @override
-  List<EditorJSCSSTag>? get cssTags;
-  @override
-  String? get defaultFont;
+  @useResult
+  $Res call({List<EditorJSCSSTag>? cssTags, String? defaultFont});
+}
+
+/// @nodoc
+class __$EditorJSViewStylesCopyWithImpl<$Res>
+    implements _$EditorJSViewStylesCopyWith<$Res> {
+  __$EditorJSViewStylesCopyWithImpl(this._self, this._then);
+
+  final _EditorJSViewStyles _self;
+  final $Res Function(_EditorJSViewStyles) _then;
 
   /// Create a copy of EditorJSViewStyles
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$EditorJSViewStylesImplCopyWith<_$EditorJSViewStylesImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? cssTags = freezed,
+    Object? defaultFont = freezed,
+  }) {
+    return _then(_EditorJSViewStyles(
+      cssTags: freezed == cssTags
+          ? _self._cssTags
+          : cssTags // ignore: cast_nullable_to_non_nullable
+              as List<EditorJSCSSTag>?,
+      defaultFont: freezed == defaultFont
+          ? _self.defaultFont
+          : defaultFont // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
+
+// dart format on

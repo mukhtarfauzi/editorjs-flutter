@@ -5,7 +5,7 @@ part 'editor_js_block_data.freezed.dart';
 part 'editor_js_block_data.g.dart';
 
 @freezed
-class EditorJSBlockData with _$EditorJSBlockData {
+sealed class EditorJSBlockData with _$EditorJSBlockData {
   const factory EditorJSBlockData({
     String? text,
     String? html,

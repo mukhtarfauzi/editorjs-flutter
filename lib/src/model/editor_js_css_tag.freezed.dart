@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,97 +10,59 @@ part of 'editor_js_css_tag.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-EditorJSCSSTag _$EditorJSCSSTagFromJson(Map<String, dynamic> json) {
-  return _EditorJSCSSTag.fromJson(json);
-}
 
 /// @nodoc
 mixin _$EditorJSCSSTag {
   @JsonKey(includeToJson: false, includeIfNull: false)
-  String? get tag => throw _privateConstructorUsedError;
+  String? get tag;
   @JsonKey(includeIfNull: false)
-  String? get backgroundColor => throw _privateConstructorUsedError;
+  String? get backgroundColor;
   @JsonKey(includeIfNull: false)
-  String? get color => throw _privateConstructorUsedError;
+  String? get color;
   @JsonKey(includeIfNull: false)
-  double? get padding => throw _privateConstructorUsedError;
-
-  /// Serializes this EditorJSCSSTag to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  double? get padding;
 
   /// Create a copy of EditorJSCSSTag
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $EditorJSCSSTagCopyWith<EditorJSCSSTag> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $EditorJSCSSTagCopyWith<$Res> {
-  factory $EditorJSCSSTagCopyWith(
-          EditorJSCSSTag value, $Res Function(EditorJSCSSTag) then) =
-      _$EditorJSCSSTagCopyWithImpl<$Res, EditorJSCSSTag>;
-  @useResult
-  $Res call(
-      {@JsonKey(includeToJson: false, includeIfNull: false) String? tag,
-      @JsonKey(includeIfNull: false) String? backgroundColor,
-      @JsonKey(includeIfNull: false) String? color,
-      @JsonKey(includeIfNull: false) double? padding});
-}
-
-/// @nodoc
-class _$EditorJSCSSTagCopyWithImpl<$Res, $Val extends EditorJSCSSTag>
-    implements $EditorJSCSSTagCopyWith<$Res> {
-  _$EditorJSCSSTagCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of EditorJSCSSTag
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $EditorJSCSSTagCopyWith<EditorJSCSSTag> get copyWith =>
+      _$EditorJSCSSTagCopyWithImpl<EditorJSCSSTag>(
+          this as EditorJSCSSTag, _$identity);
+
+  /// Serializes this EditorJSCSSTag to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? tag = freezed,
-    Object? backgroundColor = freezed,
-    Object? color = freezed,
-    Object? padding = freezed,
-  }) {
-    return _then(_value.copyWith(
-      tag: freezed == tag
-          ? _value.tag
-          : tag // ignore: cast_nullable_to_non_nullable
-              as String?,
-      backgroundColor: freezed == backgroundColor
-          ? _value.backgroundColor
-          : backgroundColor // ignore: cast_nullable_to_non_nullable
-              as String?,
-      color: freezed == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as String?,
-      padding: freezed == padding
-          ? _value.padding
-          : padding // ignore: cast_nullable_to_non_nullable
-              as double?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is EditorJSCSSTag &&
+            (identical(other.tag, tag) || other.tag == tag) &&
+            (identical(other.backgroundColor, backgroundColor) ||
+                other.backgroundColor == backgroundColor) &&
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.padding, padding) || other.padding == padding));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, tag, backgroundColor, color, padding);
+
+  @override
+  String toString() {
+    return 'EditorJSCSSTag(tag: $tag, backgroundColor: $backgroundColor, color: $color, padding: $padding)';
   }
 }
 
 /// @nodoc
-abstract class _$$EditorJSCSSTagImplCopyWith<$Res>
-    implements $EditorJSCSSTagCopyWith<$Res> {
-  factory _$$EditorJSCSSTagImplCopyWith(_$EditorJSCSSTagImpl value,
-          $Res Function(_$EditorJSCSSTagImpl) then) =
-      __$$EditorJSCSSTagImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $EditorJSCSSTagCopyWith<$Res> {
+  factory $EditorJSCSSTagCopyWith(
+          EditorJSCSSTag value, $Res Function(EditorJSCSSTag) _then) =
+      _$EditorJSCSSTagCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(includeToJson: false, includeIfNull: false) String? tag,
@@ -109,12 +72,12 @@ abstract class _$$EditorJSCSSTagImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$EditorJSCSSTagImplCopyWithImpl<$Res>
-    extends _$EditorJSCSSTagCopyWithImpl<$Res, _$EditorJSCSSTagImpl>
-    implements _$$EditorJSCSSTagImplCopyWith<$Res> {
-  __$$EditorJSCSSTagImplCopyWithImpl(
-      _$EditorJSCSSTagImpl _value, $Res Function(_$EditorJSCSSTagImpl) _then)
-      : super(_value, _then);
+class _$EditorJSCSSTagCopyWithImpl<$Res>
+    implements $EditorJSCSSTagCopyWith<$Res> {
+  _$EditorJSCSSTagCopyWithImpl(this._self, this._then);
+
+  final EditorJSCSSTag _self;
+  final $Res Function(EditorJSCSSTag) _then;
 
   /// Create a copy of EditorJSCSSTag
   /// with the given fields replaced by the non-null parameter values.
@@ -126,21 +89,21 @@ class __$$EditorJSCSSTagImplCopyWithImpl<$Res>
     Object? color = freezed,
     Object? padding = freezed,
   }) {
-    return _then(_$EditorJSCSSTagImpl(
+    return _then(_self.copyWith(
       tag: freezed == tag
-          ? _value.tag
+          ? _self.tag
           : tag // ignore: cast_nullable_to_non_nullable
               as String?,
       backgroundColor: freezed == backgroundColor
-          ? _value.backgroundColor
+          ? _self.backgroundColor
           : backgroundColor // ignore: cast_nullable_to_non_nullable
               as String?,
       color: freezed == color
-          ? _value.color
+          ? _self.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
       padding: freezed == padding
-          ? _value.padding
+          ? _self.padding
           : padding // ignore: cast_nullable_to_non_nullable
               as double?,
     ));
@@ -149,15 +112,14 @@ class __$$EditorJSCSSTagImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$EditorJSCSSTagImpl implements _EditorJSCSSTag {
-  const _$EditorJSCSSTagImpl(
+class _EditorJSCSSTag implements EditorJSCSSTag {
+  const _EditorJSCSSTag(
       {@JsonKey(includeToJson: false, includeIfNull: false) this.tag,
       @JsonKey(includeIfNull: false) this.backgroundColor,
       @JsonKey(includeIfNull: false) this.color,
       @JsonKey(includeIfNull: false) this.padding});
-
-  factory _$EditorJSCSSTagImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EditorJSCSSTagImplFromJson(json);
+  factory _EditorJSCSSTag.fromJson(Map<String, dynamic> json) =>
+      _$EditorJSCSSTagFromJson(json);
 
   @override
   @JsonKey(includeToJson: false, includeIfNull: false)
@@ -172,16 +134,26 @@ class _$EditorJSCSSTagImpl implements _EditorJSCSSTag {
   @JsonKey(includeIfNull: false)
   final double? padding;
 
+  /// Create a copy of EditorJSCSSTag
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'EditorJSCSSTag(tag: $tag, backgroundColor: $backgroundColor, color: $color, padding: $padding)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$EditorJSCSSTagCopyWith<_EditorJSCSSTag> get copyWith =>
+      __$EditorJSCSSTagCopyWithImpl<_EditorJSCSSTag>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$EditorJSCSSTagToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EditorJSCSSTagImpl &&
+            other is _EditorJSCSSTag &&
             (identical(other.tag, tag) || other.tag == tag) &&
             (identical(other.backgroundColor, backgroundColor) ||
                 other.backgroundColor == backgroundColor) &&
@@ -194,51 +166,64 @@ class _$EditorJSCSSTagImpl implements _EditorJSCSSTag {
   int get hashCode =>
       Object.hash(runtimeType, tag, backgroundColor, color, padding);
 
-  /// Create a copy of EditorJSCSSTag
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$EditorJSCSSTagImplCopyWith<_$EditorJSCSSTagImpl> get copyWith =>
-      __$$EditorJSCSSTagImplCopyWithImpl<_$EditorJSCSSTagImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EditorJSCSSTagImplToJson(
-      this,
-    );
+  String toString() {
+    return 'EditorJSCSSTag(tag: $tag, backgroundColor: $backgroundColor, color: $color, padding: $padding)';
   }
 }
 
-abstract class _EditorJSCSSTag implements EditorJSCSSTag {
-  const factory _EditorJSCSSTag(
-      {@JsonKey(includeToJson: false, includeIfNull: false) final String? tag,
-      @JsonKey(includeIfNull: false) final String? backgroundColor,
-      @JsonKey(includeIfNull: false) final String? color,
-      @JsonKey(includeIfNull: false)
-      final double? padding}) = _$EditorJSCSSTagImpl;
+/// @nodoc
+abstract mixin class _$EditorJSCSSTagCopyWith<$Res>
+    implements $EditorJSCSSTagCopyWith<$Res> {
+  factory _$EditorJSCSSTagCopyWith(
+          _EditorJSCSSTag value, $Res Function(_EditorJSCSSTag) _then) =
+      __$EditorJSCSSTagCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(includeToJson: false, includeIfNull: false) String? tag,
+      @JsonKey(includeIfNull: false) String? backgroundColor,
+      @JsonKey(includeIfNull: false) String? color,
+      @JsonKey(includeIfNull: false) double? padding});
+}
 
-  factory _EditorJSCSSTag.fromJson(Map<String, dynamic> json) =
-      _$EditorJSCSSTagImpl.fromJson;
+/// @nodoc
+class __$EditorJSCSSTagCopyWithImpl<$Res>
+    implements _$EditorJSCSSTagCopyWith<$Res> {
+  __$EditorJSCSSTagCopyWithImpl(this._self, this._then);
 
-  @override
-  @JsonKey(includeToJson: false, includeIfNull: false)
-  String? get tag;
-  @override
-  @JsonKey(includeIfNull: false)
-  String? get backgroundColor;
-  @override
-  @JsonKey(includeIfNull: false)
-  String? get color;
-  @override
-  @JsonKey(includeIfNull: false)
-  double? get padding;
+  final _EditorJSCSSTag _self;
+  final $Res Function(_EditorJSCSSTag) _then;
 
   /// Create a copy of EditorJSCSSTag
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$EditorJSCSSTagImplCopyWith<_$EditorJSCSSTagImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? tag = freezed,
+    Object? backgroundColor = freezed,
+    Object? color = freezed,
+    Object? padding = freezed,
+  }) {
+    return _then(_EditorJSCSSTag(
+      tag: freezed == tag
+          ? _self.tag
+          : tag // ignore: cast_nullable_to_non_nullable
+              as String?,
+      backgroundColor: freezed == backgroundColor
+          ? _self.backgroundColor
+          : backgroundColor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      color: freezed == color
+          ? _self.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String?,
+      padding: freezed == padding
+          ? _self.padding
+          : padding // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
 }
+
+// dart format on

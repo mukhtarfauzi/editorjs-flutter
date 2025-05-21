@@ -6,9 +6,8 @@ part of 'editor_js_block_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$EditorJSBlockDataImpl _$$EditorJSBlockDataImplFromJson(
-        Map<String, dynamic> json) =>
-    _$EditorJSBlockDataImpl(
+_EditorJSBlockData _$EditorJSBlockDataFromJson(Map<String, dynamic> json) =>
+    _EditorJSBlockData(
       text: json['text'] as String?,
       html: json['html'] as String?,
       level: (json['level'] as num?)?.toInt(),
@@ -24,8 +23,7 @@ _$EditorJSBlockDataImpl _$$EditorJSBlockDataImplFromJson(
       withBackground: json['withBackground'] as bool?,
     );
 
-Map<String, dynamic> _$$EditorJSBlockDataImplToJson(
-        _$EditorJSBlockDataImpl instance) =>
+Map<String, dynamic> _$EditorJSBlockDataToJson(_EditorJSBlockData instance) =>
     <String, dynamic>{
       'text': instance.text,
       'html': instance.html,

@@ -20,6 +20,11 @@ _EditorJSBlockData _$EditorJSBlockDataFromJson(Map<String, dynamic> json) =>
       withBorder: json['withBorder'] as bool?,
       stretched: json['stretched'] as bool?,
       withBackground: json['withBackground'] as bool?,
+      service: json['service'] as String?,
+      source: json['source'] as String?,
+      embed: json['embed'] as String?,
+      width: (json['width'] as num?)?.toInt(),
+      height: (json['height'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$EditorJSBlockDataToJson(_EditorJSBlockData instance) =>
@@ -34,4 +39,9 @@ Map<String, dynamic> _$EditorJSBlockDataToJson(_EditorJSBlockData instance) =>
       'withBorder': instance.withBorder,
       'stretched': instance.stretched,
       'withBackground': instance.withBackground,
+      'service': instance.service,
+      'source': instance.source,
+      'embed': instance.embed,
+      'width': instance.width,
+      'height': instance.height,
     };

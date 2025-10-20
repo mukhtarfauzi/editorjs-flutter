@@ -24,7 +24,12 @@ mixin _$EditorJSBlockData {
   String? get caption;
   bool? get withBorder;
   bool? get stretched;
-  bool? get withBackground;
+  bool? get withBackground; // Embed-specific fields
+  String? get service;
+  String? get source;
+  String? get embed;
+  int? get width;
+  int? get height;
 
   /// Create a copy of EditorJSBlockData
   /// with the given fields replaced by the non-null parameter values.
@@ -54,7 +59,12 @@ mixin _$EditorJSBlockData {
             (identical(other.stretched, stretched) ||
                 other.stretched == stretched) &&
             (identical(other.withBackground, withBackground) ||
-                other.withBackground == withBackground));
+                other.withBackground == withBackground) &&
+            (identical(other.service, service) || other.service == service) &&
+            (identical(other.source, source) || other.source == source) &&
+            (identical(other.embed, embed) || other.embed == embed) &&
+            (identical(other.width, width) || other.width == width) &&
+            (identical(other.height, height) || other.height == height));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -70,11 +80,16 @@ mixin _$EditorJSBlockData {
       caption,
       withBorder,
       stretched,
-      withBackground);
+      withBackground,
+      service,
+      source,
+      embed,
+      width,
+      height);
 
   @override
   String toString() {
-    return 'EditorJSBlockData(text: $text, html: $html, level: $level, style: $style, items: $items, file: $file, caption: $caption, withBorder: $withBorder, stretched: $stretched, withBackground: $withBackground)';
+    return 'EditorJSBlockData(text: $text, html: $html, level: $level, style: $style, items: $items, file: $file, caption: $caption, withBorder: $withBorder, stretched: $stretched, withBackground: $withBackground, service: $service, source: $source, embed: $embed, width: $width, height: $height)';
   }
 }
 
@@ -94,7 +109,12 @@ abstract mixin class $EditorJSBlockDataCopyWith<$Res> {
       String? caption,
       bool? withBorder,
       bool? stretched,
-      bool? withBackground});
+      bool? withBackground,
+      String? service,
+      String? source,
+      String? embed,
+      int? width,
+      int? height});
 
   $EditorJSBlockFileCopyWith<$Res>? get file;
 }
@@ -122,6 +142,11 @@ class _$EditorJSBlockDataCopyWithImpl<$Res>
     Object? withBorder = freezed,
     Object? stretched = freezed,
     Object? withBackground = freezed,
+    Object? service = freezed,
+    Object? source = freezed,
+    Object? embed = freezed,
+    Object? width = freezed,
+    Object? height = freezed,
   }) {
     return _then(_self.copyWith(
       text: freezed == text
@@ -164,6 +189,26 @@ class _$EditorJSBlockDataCopyWithImpl<$Res>
           ? _self.withBackground
           : withBackground // ignore: cast_nullable_to_non_nullable
               as bool?,
+      service: freezed == service
+          ? _self.service
+          : service // ignore: cast_nullable_to_non_nullable
+              as String?,
+      source: freezed == source
+          ? _self.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as String?,
+      embed: freezed == embed
+          ? _self.embed
+          : embed // ignore: cast_nullable_to_non_nullable
+              as String?,
+      width: freezed == width
+          ? _self.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as int?,
+      height: freezed == height
+          ? _self.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 
@@ -195,7 +240,12 @@ class _EditorJSBlockData implements EditorJSBlockData {
       this.caption,
       this.withBorder,
       this.stretched,
-      this.withBackground})
+      this.withBackground,
+      this.service,
+      this.source,
+      this.embed,
+      this.width,
+      this.height})
       : _items = items;
   factory _EditorJSBlockData.fromJson(Map<String, dynamic> json) =>
       _$EditorJSBlockDataFromJson(json);
@@ -228,6 +278,17 @@ class _EditorJSBlockData implements EditorJSBlockData {
   final bool? stretched;
   @override
   final bool? withBackground;
+// Embed-specific fields
+  @override
+  final String? service;
+  @override
+  final String? source;
+  @override
+  final String? embed;
+  @override
+  final int? width;
+  @override
+  final int? height;
 
   /// Create a copy of EditorJSBlockData
   /// with the given fields replaced by the non-null parameter values.
@@ -261,7 +322,12 @@ class _EditorJSBlockData implements EditorJSBlockData {
             (identical(other.stretched, stretched) ||
                 other.stretched == stretched) &&
             (identical(other.withBackground, withBackground) ||
-                other.withBackground == withBackground));
+                other.withBackground == withBackground) &&
+            (identical(other.service, service) || other.service == service) &&
+            (identical(other.source, source) || other.source == source) &&
+            (identical(other.embed, embed) || other.embed == embed) &&
+            (identical(other.width, width) || other.width == width) &&
+            (identical(other.height, height) || other.height == height));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -277,11 +343,16 @@ class _EditorJSBlockData implements EditorJSBlockData {
       caption,
       withBorder,
       stretched,
-      withBackground);
+      withBackground,
+      service,
+      source,
+      embed,
+      width,
+      height);
 
   @override
   String toString() {
-    return 'EditorJSBlockData(text: $text, html: $html, level: $level, style: $style, items: $items, file: $file, caption: $caption, withBorder: $withBorder, stretched: $stretched, withBackground: $withBackground)';
+    return 'EditorJSBlockData(text: $text, html: $html, level: $level, style: $style, items: $items, file: $file, caption: $caption, withBorder: $withBorder, stretched: $stretched, withBackground: $withBackground, service: $service, source: $source, embed: $embed, width: $width, height: $height)';
   }
 }
 
@@ -303,7 +374,12 @@ abstract mixin class _$EditorJSBlockDataCopyWith<$Res>
       String? caption,
       bool? withBorder,
       bool? stretched,
-      bool? withBackground});
+      bool? withBackground,
+      String? service,
+      String? source,
+      String? embed,
+      int? width,
+      int? height});
 
   @override
   $EditorJSBlockFileCopyWith<$Res>? get file;
@@ -332,6 +408,11 @@ class __$EditorJSBlockDataCopyWithImpl<$Res>
     Object? withBorder = freezed,
     Object? stretched = freezed,
     Object? withBackground = freezed,
+    Object? service = freezed,
+    Object? source = freezed,
+    Object? embed = freezed,
+    Object? width = freezed,
+    Object? height = freezed,
   }) {
     return _then(_EditorJSBlockData(
       text: freezed == text
@@ -374,6 +455,26 @@ class __$EditorJSBlockDataCopyWithImpl<$Res>
           ? _self.withBackground
           : withBackground // ignore: cast_nullable_to_non_nullable
               as bool?,
+      service: freezed == service
+          ? _self.service
+          : service // ignore: cast_nullable_to_non_nullable
+              as String?,
+      source: freezed == source
+          ? _self.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as String?,
+      embed: freezed == embed
+          ? _self.embed
+          : embed // ignore: cast_nullable_to_non_nullable
+              as String?,
+      width: freezed == width
+          ? _self.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as int?,
+      height: freezed == height
+          ? _self.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 

@@ -17,6 +17,12 @@ sealed class EditorJSBlockData with _$EditorJSBlockData {
     bool? withBorder,
     bool? stretched,
     bool? withBackground,
+    // Embed-specific fields
+    String? service,
+    String? source,
+    String? embed,
+    int? width,
+    int? height,
   }) = _EditorJSBlockData;
 
   factory EditorJSBlockData.fromJson(Map<String, dynamic> json) =>

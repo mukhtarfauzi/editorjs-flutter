@@ -8,4 +8,5 @@ export 'src/model/editor_js_block_file.dart';
 export 'src/model/editor_js_css_tag.dart';
 export 'src/model/editor_js_data.dart';
 export 'src/model/editor_js_view_styles.dart';
+export 'src/model/editor_js_checklist_item.dart';
 

@@ -77,3 +77,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+# Override transitive dependency to a version compatible with current Flutter
+# (chewie 1.3.x references deprecated APIs). This avoids build errors when running on web.
+dependency_overrides:
+  chewie: ^1.7.5

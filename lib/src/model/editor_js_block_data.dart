@@ -11,7 +11,7 @@ sealed class EditorJSBlockData with _$EditorJSBlockData {
     String? html,
     int? level,
     String? style,
-    List<String>? items,
+    List<dynamic>? items,
     EditorJSBlockFile? file,
     String? caption,
     bool? withBorder,

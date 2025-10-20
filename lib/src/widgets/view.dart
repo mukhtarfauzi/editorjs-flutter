@@ -130,15 +130,12 @@ class EditorJSViewState extends State<EditorJSView> {
             break;
           case "list":
             String? style = element.data!.style;
+            final rawItems = element.data!.items ?? [];
             List<String> list = [];
             String data = '';
-            element.data!.items!.forEach(
-              (element) {
-                list.add(
-                  '<li>$element</li>',
-                );
-              },
-            );
+            for (final item in rawItems) {
+              list.add('<li>${item is String ? item : item.toString()}</li>');
+            }
             if (style == 'ordered') {
               data = '<ol>${list.join()}</ol>';
             } else {
@@ -147,23 +144,7 @@ class EditorJSViewState extends State<EditorJSView> {
             items.add(HtmlWidget(
               data,
               onTapUrl: widget.onLinkTap,
-            )
-                // Html(
-                //   data: data,
-                //   style: {
-                //     ...customStyleMap,
-                //     'ol': Style(
-                //         padding: HtmlPaddings.zero,
-                //         margin: Margins.symmetric(horizontal: 20)),
-                //     'ul': Style(
-                //         padding: HtmlPaddings.zero,
-                //         margin: Margins.symmetric(horizontal: 20)),
-                //   },
-                //   shrinkWrap: true,
-                //   onLinkTap: widget.onLinkTap,
-                //   onAnchorTap: widget.onAnchorTap,
-                // ),
-                );
+            ));
             break;
           case "delimiter":
             items.add(
@@ -173,7 +154,9 @@ class EditorJSViewState extends State<EditorJSView> {
             ]));
             break;
           case "image":
-            items.add(Image.network(element.data!.file!.url!));
+            if (element.data!.file!.url != null) {
+              items.add(Image.network(element.data!.file!.url!));
+            }
             break;
           case "raw":
             if (element.data?.html != null) {
@@ -182,6 +165,32 @@ class EditorJSViewState extends State<EditorJSView> {
                 onTapUrl: widget.onLinkTap,
               ));
             }
+            break;
+          case "checklist":
+            final rawItems = element.data?.items ?? [];
+            final children = <Widget>[];
+            for (final item in rawItems) {
+              String text = '';
+              bool checked = false;
+              if (item is Map) {
+                final map = Map<String, dynamic>.from(item);
+                text = map['text']?.toString() ?? '';
+                checked = map['checked'] == true;
+              } else {
+                text = item.toString();
+              }
+              children.add(Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Checkbox(value: checked, onChanged: null),
+                  Expanded(child: Text(text)),
+                ],
+              ));
+            }
+            items.add(Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: children,
+            ));
             break;
         }
         items.add(const SizedBox(height: 10));

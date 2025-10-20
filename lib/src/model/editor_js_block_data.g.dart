@@ -12,8 +12,7 @@ _EditorJSBlockData _$EditorJSBlockDataFromJson(Map<String, dynamic> json) =>
       html: json['html'] as String?,
       level: (json['level'] as num?)?.toInt(),
       style: json['style'] as String?,
-      items:
-          (json['items'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      items: json['items'] as List<dynamic>?,
       file: json['file'] == null
           ? null
           : EditorJSBlockFile.fromJson(json['file'] as Map<String, dynamic>),

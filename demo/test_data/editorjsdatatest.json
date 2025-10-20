@@ -189,6 +189,22 @@
       "data": {
         "text": "Understanding portion control is crucial when dieting, as it\nhelps prevent overeating and ensures you maintain a balanced intake of\nnutrients. This 2300-calorie day plan provides a structured approach to healthy\neating, offering both meat and vegetarian options. Ensure you include dark\nvegetables, fruits, whole grains, and proteins to meet all dietary\nrequirements. By following these meal suggestions, you can manage your calorie\nintake effectively without feeling deprived, sustaining your energy throughout the\nday and meeting those nutritional goals! "
       }
+    },
+    {
+      "id": "DbeIst-usz",
+      "type": "checklist",
+      "data": {
+        "items": [
+          {
+            "text": "sss",
+            "checked": false
+          },
+          {
+            "text": "Do second",
+            "checked": true
+          }
+        ]
+      }
     }
   ],
   "version": "2.19.0"

@@ -19,7 +19,7 @@ mixin _$EditorJSBlockData {
   String? get html;
   int? get level;
   String? get style;
-  List<String>? get items;
+  List<dynamic>? get items;
   EditorJSBlockFile? get file;
   String? get caption;
   bool? get withBorder;
@@ -89,7 +89,7 @@ abstract mixin class $EditorJSBlockDataCopyWith<$Res> {
       String? html,
       int? level,
       String? style,
-      List<String>? items,
+      List<dynamic>? items,
       EditorJSBlockFile? file,
       String? caption,
       bool? withBorder,
@@ -143,7 +143,7 @@ class _$EditorJSBlockDataCopyWithImpl<$Res>
       items: freezed == items
           ? _self.items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<dynamic>?,
       file: freezed == file
           ? _self.file
           : file // ignore: cast_nullable_to_non_nullable
@@ -190,7 +190,7 @@ class _EditorJSBlockData implements EditorJSBlockData {
       this.html,
       this.level,
       this.style,
-      final List<String>? items,
+      final List<dynamic>? items,
       this.file,
       this.caption,
       this.withBorder,
@@ -208,9 +208,9 @@ class _EditorJSBlockData implements EditorJSBlockData {
   final int? level;
   @override
   final String? style;
-  final List<String>? _items;
+  final List<dynamic>? _items;
   @override
-  List<String>? get items {
+  List<dynamic>? get items {
     final value = _items;
     if (value == null) return null;
     if (_items is EqualUnmodifiableListView) return _items;
@@ -298,7 +298,7 @@ abstract mixin class _$EditorJSBlockDataCopyWith<$Res>
       String? html,
       int? level,
       String? style,
-      List<String>? items,
+      List<dynamic>? items,
       EditorJSBlockFile? file,
       String? caption,
       bool? withBorder,
@@ -353,7 +353,7 @@ class __$EditorJSBlockDataCopyWithImpl<$Res>
       items: freezed == items
           ? _self._items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<dynamic>?,
       file: freezed == file
           ? _self.file
           : file // ignore: cast_nullable_to_non_nullable

@@ -206,6 +206,19 @@
         ]
       }
     }
+  ,
+    {
+      "id": "g6svu10D9i",
+      "type": "embed",
+      "data": {
+        "service": "youtube",
+        "source": "https://www.youtube.com/watch?v=KvQOrhS9NyQ&t=209s",
+        "embed": "https://www.youtube.com/embed/KvQOrhS9NyQ?start=209s",
+        "width": 580,
+        "height": 320,
+        "caption": "De technologie van ChainCraft"
+      }
+    }
   ],
   "version": "2.19.0"
 }

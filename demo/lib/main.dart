@@ -33,7 +33,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late EditorJSView editorJSView;
+  EditorJSView? editorJSView;
 
   @override
   void initState() {
@@ -48,7 +48,10 @@ class _MyHomePageState extends State<MyHomePage> {
         .loadString("test_data/editorjsstyles.json");
 
     setState(() {
-      editorJSView = EditorJSView(data: EditorJSData.fromJson(jsonDecode(data)), styles: EditorJSViewStyles.fromJson(jsonDecode(styles)));
+      editorJSView = EditorJSView(
+        data: EditorJSData.fromJson(jsonDecode(data)),
+        styles: EditorJSViewStyles.fromJson(jsonDecode(styles)),
+      );
     });
   }
 
@@ -67,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
         shrinkWrap: true,
         padding: EdgeInsets.all(15),
         children: [
-          (editorJSView != null) ? editorJSView : Text("Please wait...")
+          (editorJSView != null) ? editorJSView! : const Text("Please wait...")
         ],
       ),
       floatingActionButton: FloatingActionButton(

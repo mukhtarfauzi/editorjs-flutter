@@ -16,6 +16,9 @@ class EditorJSView extends StatefulWidget {
   /// A function that defines what to do when a link is tapped
   final FutureOr<bool> Function(String)? onLinkTap;
 
+  /// Callback when a checklist checkbox is toggled. Returns the item's id and new value.
+  final void Function(String id, bool value)? onCheckboxChanged;
+
   /// A function that defines what to do when an anchor link is tapped. When this value is set,
   /// the default anchor behaviour is overwritten.
   // final OnTap? onAnchorTap;
@@ -25,6 +28,7 @@ class EditorJSView extends StatefulWidget {
     this.data,
     this.styles,
     this.onLinkTap,
+    this.onCheckboxChanged,
     // this.onAnchorTap,
   }) : super(key: key);
 
@@ -155,10 +159,9 @@ class EditorJSViewState extends State<EditorJSView> {
             ));
             break;
           case "delimiter":
-            items.add(
-                Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              Expanded(child: Divider(color: Colors.grey))
-            ]));
+            items.add(Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [Expanded(child: Divider(color: Colors.grey))]));
             break;
           case "image":
             final d = element.data;
@@ -178,7 +181,9 @@ class EditorJSViewState extends State<EditorJSView> {
                 width: stretched ? double.infinity : null,
                 decoration: BoxDecoration(
                   color: withBackground ? Colors.grey.shade200 : null,
-                  border: withBorder ? Border.all(color: Colors.grey.shade400) : null,
+                  border: withBorder
+                      ? Border.all(color: Colors.grey.shade400)
+                      : null,
                 ),
                 padding: withBackground ? const EdgeInsets.all(8.0) : null,
                 child: imageWidget,
@@ -194,9 +199,10 @@ class EditorJSViewState extends State<EditorJSView> {
                 final captionBg = foundCaptionStyle?.backgroundColor != null
                     ? getColor(foundCaptionStyle!.backgroundColor!)
                     : null;
-                final EdgeInsets captionPadding = foundCaptionStyle?.padding != null
-                    ? EdgeInsets.all(foundCaptionStyle!.padding!)
-                    : const EdgeInsets.only(top: 6.0);
+                final EdgeInsets captionPadding =
+                    foundCaptionStyle?.padding != null
+                        ? EdgeInsets.all(foundCaptionStyle!.padding!)
+                        : const EdgeInsets.only(top: 6.0);
 
                 children.add(Padding(
                   padding: captionPadding,
@@ -233,8 +239,10 @@ class EditorJSViewState extends State<EditorJSView> {
             final int width = d?.width ?? 560;
             final int height = d?.height ?? 315;
 
-            if (service == 'youtube' && (embedUrl != null && embedUrl.isNotEmpty)) {
-              final iframe = '<iframe width="$width" height="$height" src="$embedUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+            if (service == 'youtube' &&
+                (embedUrl != null && embedUrl.isNotEmpty)) {
+              final iframe =
+                  '<iframe width="$width" height="$height" src="$embedUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
               items.add(HtmlWidget(
                 iframe,
                 onTapUrl: widget.onLinkTap,
@@ -248,21 +256,25 @@ class EditorJSViewState extends State<EditorJSView> {
                 final captionBg = foundCaptionStyle?.backgroundColor != null
                     ? getColor(foundCaptionStyle!.backgroundColor!)
                     : null;
-                final EdgeInsets captionPadding = foundCaptionStyle?.padding != null
-                    ? EdgeInsets.all(foundCaptionStyle!.padding!)
-                    : const EdgeInsets.only(top: 6.0);
+                final EdgeInsets captionPadding =
+                    foundCaptionStyle?.padding != null
+                        ? EdgeInsets.all(foundCaptionStyle!.padding!)
+                        : const EdgeInsets.only(top: 6.0);
                 items.add(Padding(
                   padding: captionPadding,
                   child: Container(
                     color: captionBg,
-                    child: Text(d.caption!, style: TextStyle(color: captionColor)),
+                    child:
+                        Text(d.caption!, style: TextStyle(color: captionColor)),
                   ),
                 ));
               }
-            } else if ((embedUrl != null && embedUrl.isNotEmpty) || (sourceUrl != null && sourceUrl.isNotEmpty)) {
+            } else if ((embedUrl != null && embedUrl.isNotEmpty) ||
+                (sourceUrl != null && sourceUrl.isNotEmpty)) {
               final url = embedUrl ?? sourceUrl!;
               // Generic iframe attempt; if not supported on platform, user can tap the link below
-              final iframe = '<iframe width="$width" height="$height" src="$url" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+              final iframe =
+                  '<iframe width="$width" height="$height" src="$url" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
               items.add(HtmlWidget(
                 iframe,
                 onTapUrl: widget.onLinkTap,
@@ -283,14 +295,16 @@ class EditorJSViewState extends State<EditorJSView> {
                 final captionBg = foundCaptionStyle?.backgroundColor != null
                     ? getColor(foundCaptionStyle!.backgroundColor!)
                     : null;
-                final EdgeInsets captionPadding = foundCaptionStyle?.padding != null
-                    ? EdgeInsets.all(foundCaptionStyle!.padding!)
-                    : const EdgeInsets.only(top: 6.0);
+                final EdgeInsets captionPadding =
+                    foundCaptionStyle?.padding != null
+                        ? EdgeInsets.all(foundCaptionStyle!.padding!)
+                        : const EdgeInsets.only(top: 6.0);
                 items.add(Padding(
                   padding: captionPadding,
                   child: Container(
                     color: captionBg,
-                    child: Text(d.caption!, style: TextStyle(color: captionColor)),
+                    child:
+                        Text(d.caption!, style: TextStyle(color: captionColor)),
                   ),
                 ));
               }
@@ -303,7 +317,8 @@ class EditorJSViewState extends State<EditorJSView> {
             final String text = q?.text ?? '';
             final String? caption = q?.caption;
             final String align = (q?.alignment ?? 'left').toLowerCase();
-            final TextAlign textAlign = align == 'center' ? TextAlign.center : TextAlign.left;
+            final TextAlign textAlign =
+                align == 'center' ? TextAlign.center : TextAlign.left;
 
             // Apply global text style if provided
             final textStyleTag = widget.styles?.cssTags
@@ -321,24 +336,31 @@ class EditorJSViewState extends State<EditorJSView> {
               ),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               child: Column(
-                crossAxisAlignment: align == 'center' ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+                crossAxisAlignment: align == 'center'
+                    ? CrossAxisAlignment.center
+                    : CrossAxisAlignment.start,
                 children: [
                   Text(
                     text,
                     textAlign: textAlign,
-                    style: TextStyle(fontStyle: FontStyle.italic, fontSize: 16, color: globalTextColor),
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontSize: 16,
+                        color: globalTextColor),
                   ),
                   if (caption != null && caption.isNotEmpty) ...[
                     const SizedBox(height: 6),
                     Builder(builder: (context) {
                       final foundCaptionStyle = widget.styles?.cssTags
                           ?.firstWhereOrNull(((css) => css.tag == 'caption'));
-                      final Color? captionColor = foundCaptionStyle?.color != null
-                          ? getColor(foundCaptionStyle!.color!)
-                          : null;
-                      final EdgeInsets captionPadding = foundCaptionStyle?.padding != null
-                          ? EdgeInsets.all(foundCaptionStyle!.padding!)
-                          : EdgeInsets.zero;
+                      final Color? captionColor =
+                          foundCaptionStyle?.color != null
+                              ? getColor(foundCaptionStyle!.color!)
+                              : null;
+                      final EdgeInsets captionPadding =
+                          foundCaptionStyle?.padding != null
+                              ? EdgeInsets.all(foundCaptionStyle!.padding!)
+                              : EdgeInsets.zero;
                       return Padding(
                         padding: captionPadding,
                         child: Text(
@@ -369,21 +391,40 @@ class EditorJSViewState extends State<EditorJSView> {
                 ? getColor(textStyleTag!.color!)
                 : null;
 
-            for (final item in rawItems) {
+            for (int i = 0; i < rawItems.length; i++) {
+              final item = rawItems[i];
               String text = '';
               bool checked = false;
+              String id = 'checklist_$i';
               if (item is Map) {
                 final map = Map<String, dynamic>.from(item);
                 text = map['text']?.toString() ?? '';
                 checked = map['checked'] == true;
+                if (map.containsKey('id') && map['id'] != null) {
+                  id = map['id'].toString();
+                }
               } else {
                 text = item.toString();
               }
               children.add(Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Checkbox(value: checked, onChanged: null, activeColor: checkboxActiveColor),
-                  Expanded(child: Text(text, style: TextStyle(color: checklistTextColor))),
+                  Checkbox(
+                    value: checked,
+                    checkColor: checkboxActiveColor,
+                    side: checkboxActiveColor != null
+                        ? BorderSide(color: checkboxActiveColor, width: 2)
+                        : BorderSide.none,
+                    onChanged: (bool? value) {
+                      final bool newVal = value ?? false;
+                      if (widget.onCheckboxChanged != null) {
+                        widget.onCheckboxChanged!(id, newVal);
+                      }
+                    },
+                  ),
+                  Expanded(
+                      child: Text(text,
+                          style: TextStyle(color: checklistTextColor))),
                 ],
               ));
             }

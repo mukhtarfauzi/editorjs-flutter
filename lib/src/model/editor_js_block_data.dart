@@ -14,6 +14,7 @@ sealed class EditorJSBlockData with _$EditorJSBlockData {
     List<dynamic>? items,
     EditorJSBlockFile? file,
     String? caption,
+    String? alignment,
     bool? withBorder,
     bool? stretched,
     bool? withBackground,

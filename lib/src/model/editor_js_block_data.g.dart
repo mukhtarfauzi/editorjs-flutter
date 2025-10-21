@@ -17,6 +17,7 @@ _EditorJSBlockData _$EditorJSBlockDataFromJson(Map<String, dynamic> json) =>
           ? null
           : EditorJSBlockFile.fromJson(json['file'] as Map<String, dynamic>),
       caption: json['caption'] as String?,
+      alignment: json['alignment'] as String?,
       withBorder: json['withBorder'] as bool?,
       stretched: json['stretched'] as bool?,
       withBackground: json['withBackground'] as bool?,
@@ -36,6 +37,7 @@ Map<String, dynamic> _$EditorJSBlockDataToJson(_EditorJSBlockData instance) =>
       'items': instance.items,
       'file': instance.file,
       'caption': instance.caption,
+      'alignment': instance.alignment,
       'withBorder': instance.withBorder,
       'stretched': instance.stretched,
       'withBackground': instance.withBackground,

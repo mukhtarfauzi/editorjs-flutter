@@ -148,8 +148,45 @@ class EditorJSViewState extends State<EditorJSView> {
             ]));
             break;
           case "image":
-            if (element.data!.file!.url != null) {
-              items.add(Image.network(element.data!.file!.url!));
+            final d = element.data;
+            final String? url = d?.file?.url;
+            final String? caption = d?.caption;
+            final bool withBorder = d?.withBorder == true;
+            final bool withBackground = d?.withBackground == true;
+            final bool stretched = d?.stretched == true;
+
+            if (url != null && url.isNotEmpty) {
+              final imageWidget = Image.network(
+                url,
+                fit: BoxFit.contain,
+              );
+
+              Widget decorated = Container(
+                width: stretched ? double.infinity : null,
+                decoration: BoxDecoration(
+                  color: withBackground ? Colors.grey.shade200 : null,
+                  border: withBorder ? Border.all(color: Colors.grey.shade400) : null,
+                ),
+                padding: withBackground ? const EdgeInsets.all(8.0) : null,
+                child: imageWidget,
+              );
+
+              final children = <Widget>[decorated];
+              if (caption != null && caption.isNotEmpty) {
+                children.add(Padding(
+                  padding: const EdgeInsets.only(top: 6.0),
+                  child: Text(
+                    caption,
+                    style: TextStyle(color: Colors.grey.shade700, fontSize: 12),
+                  ),
+                ));
+              }
+              items.add(Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: children,
+              ));
+            } else {
+              items.add(const Text('Image: missing URL'));
             }
             break;
           case "raw":
@@ -204,6 +241,41 @@ class EditorJSViewState extends State<EditorJSView> {
             } else {
               items.add(const Text('Embed: unsupported or missing URL'));
             }
+            break;
+          case "quote":
+            final q = element.data;
+            final String text = q?.text ?? '';
+            final String? caption = q?.caption;
+            final String align = (q?.alignment ?? 'left').toLowerCase();
+            final TextAlign textAlign = align == 'center' ? TextAlign.center : TextAlign.left;
+
+            items.add(Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                border: Border(
+                  left: BorderSide(color: Colors.grey.shade400, width: 4),
+                ),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              child: Column(
+                crossAxisAlignment: align == 'center' ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    text,
+                    textAlign: textAlign,
+                    style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
+                  ),
+                  if (caption != null && caption.isNotEmpty) ...[
+                    const SizedBox(height: 6),
+                    Text(
+                      '— $caption',
+                      textAlign: textAlign,
+                      style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
+                    ),
+                  ]
+                ],
+              ),
+            ));
             break;
           case "checklist":
             final rawItems = element.data?.items ?? [];

@@ -218,6 +218,28 @@
         "height": 320,
         "caption": "De technologie van ChainCraft"
       }
+    },
+    {
+      "id": "PZy14UkzrZ",
+      "type": "quote",
+      "data": {
+        "text": "quoteeeeeeee",
+        "caption": "captionq",
+        "alignment": "left"
+      }
+    },
+    {
+      "id": "qavuvQ-NTh",
+      "type": "image",
+      "data": {
+        "file": {
+          "url": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop"
+        },
+        "caption": "spd",
+        "withBorder": false,
+        "stretched": false,
+        "withBackground": false
+      }
     }
   ],
   "version": "2.19.0"

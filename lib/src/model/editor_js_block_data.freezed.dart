@@ -22,6 +22,7 @@ mixin _$EditorJSBlockData {
   List<dynamic>? get items;
   EditorJSBlockFile? get file;
   String? get caption;
+  String? get alignment;
   bool? get withBorder;
   bool? get stretched;
   bool? get withBackground; // Embed-specific fields
@@ -54,6 +55,8 @@ mixin _$EditorJSBlockData {
             const DeepCollectionEquality().equals(other.items, items) &&
             (identical(other.file, file) || other.file == file) &&
             (identical(other.caption, caption) || other.caption == caption) &&
+            (identical(other.alignment, alignment) ||
+                other.alignment == alignment) &&
             (identical(other.withBorder, withBorder) ||
                 other.withBorder == withBorder) &&
             (identical(other.stretched, stretched) ||
@@ -78,6 +81,7 @@ mixin _$EditorJSBlockData {
       const DeepCollectionEquality().hash(items),
       file,
       caption,
+      alignment,
       withBorder,
       stretched,
       withBackground,
@@ -89,7 +93,7 @@ mixin _$EditorJSBlockData {
 
   @override
   String toString() {
-    return 'EditorJSBlockData(text: $text, html: $html, level: $level, style: $style, items: $items, file: $file, caption: $caption, withBorder: $withBorder, stretched: $stretched, withBackground: $withBackground, service: $service, source: $source, embed: $embed, width: $width, height: $height)';
+    return 'EditorJSBlockData(text: $text, html: $html, level: $level, style: $style, items: $items, file: $file, caption: $caption, alignment: $alignment, withBorder: $withBorder, stretched: $stretched, withBackground: $withBackground, service: $service, source: $source, embed: $embed, width: $width, height: $height)';
   }
 }
 
@@ -107,6 +111,7 @@ abstract mixin class $EditorJSBlockDataCopyWith<$Res> {
       List<dynamic>? items,
       EditorJSBlockFile? file,
       String? caption,
+      String? alignment,
       bool? withBorder,
       bool? stretched,
       bool? withBackground,
@@ -139,6 +144,7 @@ class _$EditorJSBlockDataCopyWithImpl<$Res>
     Object? items = freezed,
     Object? file = freezed,
     Object? caption = freezed,
+    Object? alignment = freezed,
     Object? withBorder = freezed,
     Object? stretched = freezed,
     Object? withBackground = freezed,
@@ -176,6 +182,10 @@ class _$EditorJSBlockDataCopyWithImpl<$Res>
       caption: freezed == caption
           ? _self.caption
           : caption // ignore: cast_nullable_to_non_nullable
+              as String?,
+      alignment: freezed == alignment
+          ? _self.alignment
+          : alignment // ignore: cast_nullable_to_non_nullable
               as String?,
       withBorder: freezed == withBorder
           ? _self.withBorder
@@ -238,6 +248,7 @@ class _EditorJSBlockData implements EditorJSBlockData {
       final List<dynamic>? items,
       this.file,
       this.caption,
+      this.alignment,
       this.withBorder,
       this.stretched,
       this.withBackground,
@@ -272,6 +283,8 @@ class _EditorJSBlockData implements EditorJSBlockData {
   final EditorJSBlockFile? file;
   @override
   final String? caption;
+  @override
+  final String? alignment;
   @override
   final bool? withBorder;
   @override
@@ -317,6 +330,8 @@ class _EditorJSBlockData implements EditorJSBlockData {
             const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.file, file) || other.file == file) &&
             (identical(other.caption, caption) || other.caption == caption) &&
+            (identical(other.alignment, alignment) ||
+                other.alignment == alignment) &&
             (identical(other.withBorder, withBorder) ||
                 other.withBorder == withBorder) &&
             (identical(other.stretched, stretched) ||
@@ -341,6 +356,7 @@ class _EditorJSBlockData implements EditorJSBlockData {
       const DeepCollectionEquality().hash(_items),
       file,
       caption,
+      alignment,
       withBorder,
       stretched,
       withBackground,
@@ -352,7 +368,7 @@ class _EditorJSBlockData implements EditorJSBlockData {
 
   @override
   String toString() {
-    return 'EditorJSBlockData(text: $text, html: $html, level: $level, style: $style, items: $items, file: $file, caption: $caption, withBorder: $withBorder, stretched: $stretched, withBackground: $withBackground, service: $service, source: $source, embed: $embed, width: $width, height: $height)';
+    return 'EditorJSBlockData(text: $text, html: $html, level: $level, style: $style, items: $items, file: $file, caption: $caption, alignment: $alignment, withBorder: $withBorder, stretched: $stretched, withBackground: $withBackground, service: $service, source: $source, embed: $embed, width: $width, height: $height)';
   }
 }
 
@@ -372,6 +388,7 @@ abstract mixin class _$EditorJSBlockDataCopyWith<$Res>
       List<dynamic>? items,
       EditorJSBlockFile? file,
       String? caption,
+      String? alignment,
       bool? withBorder,
       bool? stretched,
       bool? withBackground,
@@ -405,6 +422,7 @@ class __$EditorJSBlockDataCopyWithImpl<$Res>
     Object? items = freezed,
     Object? file = freezed,
     Object? caption = freezed,
+    Object? alignment = freezed,
     Object? withBorder = freezed,
     Object? stretched = freezed,
     Object? withBackground = freezed,
@@ -442,6 +460,10 @@ class __$EditorJSBlockDataCopyWithImpl<$Res>
       caption: freezed == caption
           ? _self.caption
           : caption // ignore: cast_nullable_to_non_nullable
+              as String?,
+      alignment: freezed == alignment
+          ? _self.alignment
+          : alignment // ignore: cast_nullable_to_non_nullable
               as String?,
       withBorder: freezed == withBorder
           ? _self.withBorder

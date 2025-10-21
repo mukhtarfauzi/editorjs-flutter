@@ -139,6 +139,19 @@ class EditorJSViewState extends State<EditorJSView> {
             items.add(HtmlWidget(
               data,
               onTapUrl: widget.onLinkTap,
+              customStylesBuilder: (el) {
+                // Apply global style for list blocks
+                final foundGlobalStyle = widget.styles?.cssTags
+                    ?.firstWhereOrNull(((css) => css.tag == 'list'));
+                if (foundGlobalStyle != null &&
+                    (el.localName == 'ul' || el.localName == 'ol')) {
+                  final styleMap = foundGlobalStyle
+                      .toJson()
+                      .map((key, value) => MapEntry(key, '$value'));
+                  return styleMap;
+                }
+                return null;
+              },
             ));
             break;
           case "delimiter":
@@ -173,11 +186,26 @@ class EditorJSViewState extends State<EditorJSView> {
 
               final children = <Widget>[decorated];
               if (caption != null && caption.isNotEmpty) {
+                final foundCaptionStyle = widget.styles?.cssTags
+                    ?.firstWhereOrNull(((css) => css.tag == 'caption'));
+                final captionColor = foundCaptionStyle?.color != null
+                    ? getColor(foundCaptionStyle!.color!)
+                    : null;
+                final captionBg = foundCaptionStyle?.backgroundColor != null
+                    ? getColor(foundCaptionStyle!.backgroundColor!)
+                    : null;
+                final EdgeInsets captionPadding = foundCaptionStyle?.padding != null
+                    ? EdgeInsets.all(foundCaptionStyle!.padding!)
+                    : const EdgeInsets.only(top: 6.0);
+
                 children.add(Padding(
-                  padding: const EdgeInsets.only(top: 6.0),
-                  child: Text(
-                    caption,
-                    style: TextStyle(color: Colors.grey.shade700, fontSize: 12),
+                  padding: captionPadding,
+                  child: Container(
+                    color: captionBg,
+                    child: Text(
+                      caption,
+                      style: TextStyle(color: captionColor, fontSize: 12),
+                    ),
                   ),
                 ));
               }
@@ -212,9 +240,23 @@ class EditorJSViewState extends State<EditorJSView> {
                 onTapUrl: widget.onLinkTap,
               ));
               if (d?.caption != null && d!.caption!.isNotEmpty) {
+                final foundCaptionStyle = widget.styles?.cssTags
+                    ?.firstWhereOrNull(((css) => css.tag == 'caption'));
+                final captionColor = foundCaptionStyle?.color != null
+                    ? getColor(foundCaptionStyle!.color!)
+                    : null;
+                final captionBg = foundCaptionStyle?.backgroundColor != null
+                    ? getColor(foundCaptionStyle!.backgroundColor!)
+                    : null;
+                final EdgeInsets captionPadding = foundCaptionStyle?.padding != null
+                    ? EdgeInsets.all(foundCaptionStyle!.padding!)
+                    : const EdgeInsets.only(top: 6.0);
                 items.add(Padding(
-                  padding: const EdgeInsets.only(top: 6.0),
-                  child: Text(d.caption!),
+                  padding: captionPadding,
+                  child: Container(
+                    color: captionBg,
+                    child: Text(d.caption!, style: TextStyle(color: captionColor)),
+                  ),
                 ));
               }
             } else if ((embedUrl != null && embedUrl.isNotEmpty) || (sourceUrl != null && sourceUrl.isNotEmpty)) {
@@ -233,9 +275,23 @@ class EditorJSViewState extends State<EditorJSView> {
                 ),
               ));
               if (d?.caption != null && d!.caption!.isNotEmpty) {
+                final foundCaptionStyle = widget.styles?.cssTags
+                    ?.firstWhereOrNull(((css) => css.tag == 'caption'));
+                final captionColor = foundCaptionStyle?.color != null
+                    ? getColor(foundCaptionStyle!.color!)
+                    : null;
+                final captionBg = foundCaptionStyle?.backgroundColor != null
+                    ? getColor(foundCaptionStyle!.backgroundColor!)
+                    : null;
+                final EdgeInsets captionPadding = foundCaptionStyle?.padding != null
+                    ? EdgeInsets.all(foundCaptionStyle!.padding!)
+                    : const EdgeInsets.only(top: 6.0);
                 items.add(Padding(
-                  padding: const EdgeInsets.only(top: 6.0),
-                  child: Text(d.caption!),
+                  padding: captionPadding,
+                  child: Container(
+                    color: captionBg,
+                    child: Text(d.caption!, style: TextStyle(color: captionColor)),
+                  ),
                 ));
               }
             } else {
@@ -248,6 +304,13 @@ class EditorJSViewState extends State<EditorJSView> {
             final String? caption = q?.caption;
             final String align = (q?.alignment ?? 'left').toLowerCase();
             final TextAlign textAlign = align == 'center' ? TextAlign.center : TextAlign.left;
+
+            // Apply global text style if provided
+            final textStyleTag = widget.styles?.cssTags
+                ?.firstWhereOrNull(((css) => css.tag == 'text'));
+            final Color? globalTextColor = textStyleTag?.color != null
+                ? getColor(textStyleTag!.color!)
+                : null;
 
             items.add(Container(
               width: double.infinity,
@@ -263,15 +326,28 @@ class EditorJSViewState extends State<EditorJSView> {
                   Text(
                     text,
                     textAlign: textAlign,
-                    style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
+                    style: TextStyle(fontStyle: FontStyle.italic, fontSize: 16, color: globalTextColor),
                   ),
                   if (caption != null && caption.isNotEmpty) ...[
                     const SizedBox(height: 6),
-                    Text(
-                      '— $caption',
-                      textAlign: textAlign,
-                      style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
-                    ),
+                    Builder(builder: (context) {
+                      final foundCaptionStyle = widget.styles?.cssTags
+                          ?.firstWhereOrNull(((css) => css.tag == 'caption'));
+                      final Color? captionColor = foundCaptionStyle?.color != null
+                          ? getColor(foundCaptionStyle!.color!)
+                          : null;
+                      final EdgeInsets captionPadding = foundCaptionStyle?.padding != null
+                          ? EdgeInsets.all(foundCaptionStyle!.padding!)
+                          : EdgeInsets.zero;
+                      return Padding(
+                        padding: captionPadding,
+                        child: Text(
+                          '— $caption',
+                          textAlign: textAlign,
+                          style: TextStyle(color: captionColor, fontSize: 14),
+                        ),
+                      );
+                    })
                   ]
                 ],
               ),
@@ -280,6 +356,19 @@ class EditorJSViewState extends State<EditorJSView> {
           case "checklist":
             final rawItems = element.data?.items ?? [];
             final children = <Widget>[];
+
+            // Global styles for checklist components
+            final checkboxStyleTag = widget.styles?.cssTags
+                ?.firstWhereOrNull(((css) => css.tag == 'checkbox'));
+            final Color? checkboxActiveColor = checkboxStyleTag?.color != null
+                ? getColor(checkboxStyleTag!.color!)
+                : null;
+            final textStyleTag = widget.styles?.cssTags
+                ?.firstWhereOrNull(((css) => css.tag == 'text'));
+            final Color? checklistTextColor = textStyleTag?.color != null
+                ? getColor(textStyleTag!.color!)
+                : null;
+
             for (final item in rawItems) {
               String text = '';
               bool checked = false;
@@ -293,8 +382,8 @@ class EditorJSViewState extends State<EditorJSView> {
               children.add(Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Checkbox(value: checked, onChanged: null),
-                  Expanded(child: Text(text)),
+                  Checkbox(value: checked, onChanged: null, activeColor: checkboxActiveColor),
+                  Expanded(child: Text(text, style: TextStyle(color: checklistTextColor))),
                 ],
               ));
             }

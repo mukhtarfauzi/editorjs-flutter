@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:collection/collection.dart';
+import 'package:editorjs_flutter/editorjs_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:editorjs_flutter/src/model/editor_js_data.dart';
@@ -19,6 +20,11 @@ class EditorJSView extends StatefulWidget {
   /// Callback when a checklist checkbox is toggled. Returns the item's id and new value.
   final void Function(String id, bool value)? onCheckboxChanged;
 
+  /// Custom tag replacer function that allows replacing specific block types with custom widgets.
+  /// Returns a Widget if the tag should be replaced, or null to use default rendering.
+  /// Parameters: blockType (e.g., "header", "paragraph"), blockData (EditorJSBlockData), and blockIndex
+  final Widget? Function(EditorJSBlock, int blockIndex)? customWidgetBuilder;
+
   /// A function that defines what to do when an anchor link is tapped. When this value is set,
   /// the default anchor behaviour is overwritten.
   // final OnTap? onAnchorTap;
@@ -29,6 +35,7 @@ class EditorJSView extends StatefulWidget {
     this.styles,
     this.onLinkTap,
     this.onCheckboxChanged,
+    this.customWidgetBuilder,
     // this.onAnchorTap,
   }) : super(key: key);
 
@@ -47,8 +54,21 @@ class EditorJSViewState extends State<EditorJSView> {
 
     // customStyleMap = generateStylemap(widget.styles?.cssTags);
 
-    widget.data?.blocks?.forEach(
-      (element) {
+    widget.data?.blocks?.forEachIndexed(
+      (index, element) {
+        // Check if user wants to replace this block type with custom widget
+        if (widget.customWidgetBuilder != null) {
+          final customWidget = widget.customWidgetBuilder!(
+            element,
+            index,
+          );
+          if (customWidget != null) {
+            items.add(customWidget);
+            items.add(const SizedBox(height: 10));
+            return; // Skip default rendering
+          }
+        }
+
         double levelFontSize = 16;
 
         switch (element.data!.level) {

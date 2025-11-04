@@ -9,6 +9,7 @@ import 'package:editorjs_flutter/src/model/editor_js_data.dart';
 import 'package:editorjs_flutter/src/model/editor_js_view_styles.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class EditorJSView extends StatefulWidget {
   final EditorJSData? data;
@@ -261,12 +262,33 @@ class EditorJSViewState extends State<EditorJSView> {
 
             if (service == 'youtube' &&
                 (embedUrl != null && embedUrl.isNotEmpty)) {
-              final iframe =
-                  '<iframe width="$width" height="$height" src="$embedUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
-              items.add(HtmlWidget(
-                iframe,
-                onTapUrl: widget.onLinkTap,
-              ));
+              final videoId = YoutubePlayerController.convertUrlToId(embedUrl);
+
+              if (videoId != null) {
+                final controller = YoutubePlayerController.fromVideoId(
+                  videoId: videoId,
+                  autoPlay: false,
+                  params: const YoutubePlayerParams(
+                      showControls: true,
+                      mute: false,
+                      showFullscreenButton: true,
+                      loop: false,
+                      origin: 'https://www.youtube-nocookie.com'),
+                );
+                items.add(
+                  YoutubePlayer(
+                    controller: controller,
+                    aspectRatio: 16 / 9,
+                  ),
+                );
+              } else {
+                final iframe =
+                    '<iframe width="$width" height="$height" src="$embedUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+                items.add(HtmlWidget(
+                  iframe,
+                  onTapUrl: widget.onLinkTap,
+                ));
+              }
               if (d?.caption != null && d!.caption!.isNotEmpty) {
                 final foundCaptionStyle = widget.styles?.cssTags
                     ?.firstWhereOrNull(((css) => css.tag == 'caption'));

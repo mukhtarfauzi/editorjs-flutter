@@ -84,3 +84,4 @@ dependency_overrides:
   chewie: ^1.7.5
   image_picker_platform_interface: ^2.10.0
   typed_data: ^1.4.0
+  win32: ^5.2.0

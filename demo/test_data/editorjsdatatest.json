@@ -191,6 +191,27 @@
       }
     },
     {
+      "id": "checklistBlock",
+      "type": "list",
+      "data": {
+        "style": "checklist",
+        "items": [
+          {
+            "content": "This item is unchecked",
+            "meta": {
+              "checked": false
+            }
+          },
+          {
+            "content": "This item is checked",
+            "meta": {
+              "checked": true
+            }
+          }
+        ]
+      }
+    },
+    {
       "id": "DbeIst-usz",
       "type": "checklist",
       "data": {

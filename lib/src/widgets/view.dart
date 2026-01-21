@@ -151,37 +151,97 @@ class EditorJSViewState extends State<EditorJSView> {
           case "list":
             String? style = element.data!.style;
             final rawItems = element.data!.items ?? [];
-            List<String> list = [];
-            String data = '';
-            for (final item in rawItems) {
-              if (item is Map) {
-                list.add('<li>${item['content'] ?? ''}</li>');
-              } else {
-                list.add('<li>${item is String ? item : item.toString()}</li>');
-              }
-            }
-            if (style == 'ordered') {
-              data = '<ol>${list.join()}</ol>';
-            } else {
-              data = '<ul>${list.join()}</ul>';
-            }
-            items.add(HtmlWidget(
-              data,
-              onTapUrl: widget.onLinkTap,
-              customStylesBuilder: (el) {
-                // Apply global style for list blocks
-                final foundGlobalStyle = widget.styles?.cssTags
-                    ?.firstWhereOrNull(((css) => css.tag == 'list'));
-                if (foundGlobalStyle != null &&
-                    (el.localName == 'ul' || el.localName == 'ol')) {
-                  final styleMap = foundGlobalStyle
-                      .toJson()
-                      .map((key, value) => MapEntry(key, '$value'));
-                  return styleMap;
+
+            if (style == 'checklist') {
+              final children = <Widget>[];
+              // Global styles for checklist components
+              final checkboxStyleTag = widget.styles?.cssTags
+                  ?.firstWhereOrNull(((css) => css.tag == 'checkbox'));
+              final Color? checkboxActiveColor = checkboxStyleTag?.color != null
+                  ? getColor(checkboxStyleTag!.color!)
+                  : null;
+              final textStyleTag = widget.styles?.cssTags
+                  ?.firstWhereOrNull(((css) => css.tag == 'text'));
+              final Color? checklistTextColor = textStyleTag?.color != null
+                  ? getColor(textStyleTag!.color!)
+                  : null;
+
+              for (int i = 0; i < rawItems.length; i++) {
+                final item = rawItems[i];
+                String content = '';
+                bool checked = false;
+                String id = 'checklist_$i';
+
+                if (item is Map) {
+                  content = item['content'] ?? '';
+                  if (item['meta'] is Map) {
+                    checked = item['meta']['checked'] == true;
+                  }
+                } else {
+                  content = item.toString();
                 }
-                return null;
-              },
-            ));
+
+                children.add(Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Checkbox(
+                      value: checked,
+                      checkColor: checkboxActiveColor,
+                      side: WidgetStateBorderSide.resolveWith((states) =>
+                          BorderSide(
+                            color: checkboxActiveColor ?? Colors.grey.shade400,
+                          )),
+                      onChanged: (bool? value) {
+                        final bool newVal = value ?? false;
+                        if (widget.onCheckboxChanged != null) {
+                          widget.onCheckboxChanged!(id, newVal);
+                        }
+                      },
+                    ),
+                    Expanded(
+                        child: Text(content,
+                            style: TextStyle(color: checklistTextColor))),
+                  ],
+                ));
+              }
+              items.add(Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: children,
+              ));
+            } else {
+              List<String> list = [];
+              String data = '';
+              for (final item in rawItems) {
+                if (item is Map) {
+                  list.add('<li>${item['content'] ?? ''}</li>');
+                } else {
+                  list.add(
+                      '<li>${item is String ? item : item.toString()}</li>');
+                }
+              }
+              if (style == 'ordered') {
+                data = '<ol>${list.join()}</ol>';
+              } else {
+                data = '<ul>${list.join()}</ul>';
+              }
+              items.add(HtmlWidget(
+                data,
+                onTapUrl: widget.onLinkTap,
+                customStylesBuilder: (el) {
+                  // Apply global style for list blocks
+                  final foundGlobalStyle = widget.styles?.cssTags
+                      ?.firstWhereOrNull(((css) => css.tag == 'list'));
+                  if (foundGlobalStyle != null &&
+                      (el.localName == 'ul' || el.localName == 'ol')) {
+                    final styleMap = foundGlobalStyle
+                        .toJson()
+                        .map((key, value) => MapEntry(key, '$value'));
+                    return styleMap;
+                  }
+                  return null;
+                },
+              ));
+            }
             break;
           case "delimiter":
             items.add(Row(

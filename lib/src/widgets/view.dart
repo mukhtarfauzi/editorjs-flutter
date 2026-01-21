@@ -173,9 +173,11 @@ class EditorJSViewState extends State<EditorJSView> {
                 String id = 'checklist_$i';
 
                 if (item is Map) {
-                  content = item['content'] ?? '';
-                  if (item['meta'] is Map) {
+                  content = item['content'] ?? item['text'] ?? '';
+                  if (item['meta'] is Map && item['meta']['checked'] != null) {
                     checked = item['meta']['checked'] == true;
+                  } else if (item['checked'] != null) {
+                    checked = item['checked'] == true;
                   }
                 } else {
                   content = item.toString();
@@ -216,7 +218,7 @@ class EditorJSViewState extends State<EditorJSView> {
               String data = '';
               for (final item in rawItems) {
                 if (item is Map) {
-                  list.add('<li>${item['content'] ?? ''}</li>');
+                  list.add('<li>${item['content'] ?? item['text'] ?? ''}</li>');
                 } else {
                   list.add(
                       '<li>${item is String ? item : item.toString()}</li>');
@@ -507,8 +509,15 @@ class EditorJSViewState extends State<EditorJSView> {
               String id = 'checklist_$i';
               if (item is Map) {
                 final map = Map<String, dynamic>.from(item);
-                text = map['text']?.toString() ?? '';
-                checked = map['checked'] == true;
+                text = map['text']?.toString() ??
+                    map['content']?.toString() ??
+                    '';
+                if (map['checked'] != null) {
+                  checked = map['checked'] == true;
+                } else if (map['meta'] is Map &&
+                    map['meta']['checked'] != null) {
+                  checked = map['meta']['checked'] == true;
+                }
                 if (map.containsKey('id') && map['id'] != null) {
                   id = map['id'].toString();
                 }
@@ -521,6 +530,12 @@ class EditorJSViewState extends State<EditorJSView> {
                   Checkbox(
                     value: checked,
                     checkColor: checkboxActiveColor,
+                    side: checkboxActiveColor != null
+                        ? BorderSide(color: checkboxActiveColor, width: 2)
+                        : null,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                     onChanged: (bool? value) {
                       final bool newVal = value ?? false;
                       if (widget.onCheckboxChanged != null) {

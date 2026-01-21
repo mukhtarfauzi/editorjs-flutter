@@ -154,7 +154,11 @@ class EditorJSViewState extends State<EditorJSView> {
             List<String> list = [];
             String data = '';
             for (final item in rawItems) {
-              list.add('<li>${item is String ? item : item.toString()}</li>');
+              if (item is Map) {
+                list.add('<li>${item['content'] ?? ''}</li>');
+              } else {
+                list.add('<li>${item is String ? item : item.toString()}</li>');
+              }
             }
             if (style == 'ordered') {
               data = '<ol>${list.join()}</ol>';

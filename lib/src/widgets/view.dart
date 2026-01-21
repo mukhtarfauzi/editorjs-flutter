@@ -191,6 +191,9 @@ class EditorJSViewState extends State<EditorJSView> {
                           BorderSide(
                             color: checkboxActiveColor ?? Colors.grey.shade400,
                           )),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                       onChanged: (bool? value) {
                         final bool newVal = value ?? false;
                         if (widget.onCheckboxChanged != null) {
@@ -518,9 +521,6 @@ class EditorJSViewState extends State<EditorJSView> {
                   Checkbox(
                     value: checked,
                     checkColor: checkboxActiveColor,
-                    side: checkboxActiveColor != null
-                        ? BorderSide(color: checkboxActiveColor, width: 2)
-                        : BorderSide.none,
                     onChanged: (bool? value) {
                       final bool newVal = value ?? false;
                       if (widget.onCheckboxChanged != null) {

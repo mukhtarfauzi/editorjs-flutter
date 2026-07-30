@@ -11,6 +11,21 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
+/// Matches runs of HTML-insignificant whitespace: newlines, carriage returns,
+/// tabs and repeated spaces. Non-breaking spaces are deliberately excluded,
+/// they are significant in HTML and are used as intentional spacers.
+final RegExp _htmlWhitespace = RegExp(r'[ \t\r\n]+');
+
+/// Collapses whitespace the way an HTML renderer does, so text that only
+/// carries soft line-wraps (typically pasted from Word into EditorJS) flows to
+/// the available width instead of breaking at every source newline.
+///
+/// Blocks rendered through [HtmlWidget] get this for free; blocks rendered with
+/// a plain [Text] widget need it applied explicitly, because `Text` treats
+/// `\n` as a hard line break.
+String collapseHtmlWhitespace(String text) =>
+    text.replaceAll(_htmlWhitespace, ' ').trim();
+
 class EditorJSView extends StatefulWidget {
   final EditorJSData? data;
   final EditorJSViewStyles? styles;
@@ -111,7 +126,7 @@ class EditorJSViewState extends State<EditorJSView> {
                 Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Flexible(
                 child: Text(
-                  element.data!.text!,
+                  collapseHtmlWhitespace(element.data!.text!),
                   style: TextStyle(
                       fontSize: levelFontSize,
                       fontWeight: fontWeight,
@@ -204,7 +219,7 @@ class EditorJSViewState extends State<EditorJSView> {
                       },
                     ),
                     Expanded(
-                        child: Text(content,
+                        child: Text(collapseHtmlWhitespace(content),
                             style: TextStyle(color: checklistTextColor))),
                   ],
                 ));
@@ -299,7 +314,7 @@ class EditorJSViewState extends State<EditorJSView> {
                   child: Container(
                     color: captionBg,
                     child: Text(
-                      caption,
+                      collapseHtmlWhitespace(caption),
                       style: TextStyle(color: captionColor, fontSize: 12),
                     ),
                   ),
@@ -375,8 +390,8 @@ class EditorJSViewState extends State<EditorJSView> {
                   padding: captionPadding,
                   child: Container(
                     color: captionBg,
-                    child:
-                        Text(d.caption!, style: TextStyle(color: captionColor)),
+                    child: Text(collapseHtmlWhitespace(d.caption!),
+                        style: TextStyle(color: captionColor)),
                   ),
                 ));
               }
@@ -414,8 +429,8 @@ class EditorJSViewState extends State<EditorJSView> {
                   padding: captionPadding,
                   child: Container(
                     color: captionBg,
-                    child:
-                        Text(d.caption!, style: TextStyle(color: captionColor)),
+                    child: Text(collapseHtmlWhitespace(d.caption!),
+                        style: TextStyle(color: captionColor)),
                   ),
                 ));
               }
@@ -452,7 +467,7 @@ class EditorJSViewState extends State<EditorJSView> {
                     : CrossAxisAlignment.start,
                 children: [
                   Text(
-                    text,
+                    collapseHtmlWhitespace(text),
                     textAlign: textAlign,
                     style: TextStyle(
                         fontStyle: FontStyle.italic,
@@ -475,7 +490,7 @@ class EditorJSViewState extends State<EditorJSView> {
                       return Padding(
                         padding: captionPadding,
                         child: Text(
-                          '— $caption',
+                          '— ${collapseHtmlWhitespace(caption)}',
                           textAlign: textAlign,
                           style: TextStyle(color: captionColor, fontSize: 14),
                         ),
@@ -544,7 +559,7 @@ class EditorJSViewState extends State<EditorJSView> {
                     },
                   ),
                   Expanded(
-                      child: Text(text,
+                      child: Text(collapseHtmlWhitespace(text),
                           style: TextStyle(color: checklistTextColor))),
                 ],
               ));

@@ -26,6 +26,61 @@ final RegExp _htmlWhitespace = RegExp(r'[ \t\r\n]+');
 String collapseHtmlWhitespace(String text) =>
     text.replaceAll(_htmlWhitespace, ' ').trim();
 
+final RegExp _htmlEntity = RegExp(r'&(#x?[0-9a-fA-F]+|[a-zA-Z]+);');
+final RegExp _htmlTag = RegExp(r'<[^>]*>');
+
+const Map<String, String> _namedEntities = {
+  'lt': '<',
+  'gt': '>',
+  'quot': '"',
+  'apos': "'",
+  'nbsp': ' ',
+  'ndash': '–',
+  'mdash': '—',
+  'hellip': '…',
+  'lsquo': '‘',
+  'rsquo': '’',
+  'ldquo': '“',
+  'rdquo': '”',
+  'amp': '&',
+};
+
+/// Decodes the HTML character entities that EditorJS stores in its text
+/// fields, so blocks rendered with a plain [Text] widget do not show raw
+/// `&amp;` markup. Blocks rendered through [HtmlWidget] decode these natively.
+///
+/// Unknown entities are left as-is rather than dropped, so nothing is silently
+/// lost. `&amp;` resolves last by construction: each match is replaced once, so
+/// the `&` it produces is never re-scanned.
+String decodeHtmlEntities(String text) =>
+    text.replaceAllMapped(_htmlEntity, (match) {
+      final entity = match.group(1)!;
+      if (entity.startsWith('#')) {
+        final isHex = entity[1] == 'x' || entity[1] == 'X';
+        final digits = isHex ? entity.substring(2) : entity.substring(1);
+        final code = int.tryParse(digits, radix: isHex ? 16 : 10);
+        if (code == null || code < 0 || code > 0x10FFFF) return match.group(0)!;
+        return String.fromCharCode(code);
+      }
+      return _namedEntities[entity.toLowerCase()] ?? match.group(0)!;
+    });
+
+/// Renders an EditorJS text field down to plain text for the widgets that
+/// cannot host inline markup (captions, checklist rows, quotes): tags are
+/// stripped, entities decoded and whitespace collapsed the way a browser
+/// would.
+String htmlToPlainText(String text) =>
+    collapseHtmlWhitespace(decodeHtmlEntities(text.replaceAll(_htmlTag, '')));
+
+/// Whether a block carries no visible content, e.g. the `<b>&nbsp;</b>`
+/// spacer paragraphs that Word-pasted documents leave behind. Non-breaking
+/// spaces count as blank here: the block's own vertical spacing already
+/// provides the gap the spacer was standing in for.
+bool isBlankHtml(String? text) {
+  if (text == null) return true;
+  return htmlToPlainText(text).replaceAll(' ', ' ').trim().isEmpty;
+}
+
 class EditorJSView extends StatefulWidget {
   final EditorJSData? data;
   final EditorJSViewStyles? styles;
@@ -85,9 +140,21 @@ class EditorJSViewState extends State<EditorJSView> {
           }
         }
 
+        // Word-pasted documents leave `<b>&nbsp;</b>` spacer blocks behind.
+        // Rendering them stacks a stray gap on top of the spacing every block
+        // already gets, which is what makes the vertical rhythm uneven.
+        if ((element.type == "paragraph" || element.type == "header") &&
+            isBlankHtml(element.data?.text)) {
+          return;
+        }
+
+        // Only blocks that actually rendered something should claim spacing,
+        // so unhandled block types do not leave a gap behind either.
+        final int itemCountBeforeBlock = items.length;
+
         double levelFontSize = 16;
 
-        switch (element.data!.level) {
+        switch (element.data?.level) {
           case 1:
             levelFontSize = 32;
             break;
@@ -110,7 +177,7 @@ class EditorJSViewState extends State<EditorJSView> {
 
         switch (element.type) {
           case "header":
-            final fontWeight = (element.data!.level! <= 3)
+            final fontWeight = ((element.data?.level ?? 1) <= 3)
                 ? FontWeight.bold
                 : FontWeight.normal;
             Color? color = null;
@@ -122,18 +189,20 @@ class EditorJSViewState extends State<EditorJSView> {
                 color = getColor(colorHex);
               }
             }
+            // Rendered as HTML rather than as a plain Text so headers keep the
+            // inline markup (<b>, <i>, <a>) and character entities that the
+            // web renderer shows, and so their soft line-wraps collapse the
+            // same way paragraphs' do.
             items.add(
-                Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Flexible(
-                child: Text(
-                  collapseHtmlWhitespace(element.data!.text!),
-                  style: TextStyle(
-                      fontSize: levelFontSize,
-                      fontWeight: fontWeight,
-                      color: color),
-                ),
-              )
-            ]));
+              HtmlWidget(
+                '<div>${element.data?.text ?? ''}</div>',
+                onTapUrl: widget.onLinkTap,
+                textStyle: TextStyle(
+                    fontSize: levelFontSize,
+                    fontWeight: fontWeight,
+                    color: color),
+              ),
+            );
             break;
           case "paragraph":
             items.add(
@@ -219,7 +288,7 @@ class EditorJSViewState extends State<EditorJSView> {
                       },
                     ),
                     Expanded(
-                        child: Text(collapseHtmlWhitespace(content),
+                        child: Text(htmlToPlainText(content),
                             style: TextStyle(color: checklistTextColor))),
                   ],
                 ));
@@ -314,7 +383,7 @@ class EditorJSViewState extends State<EditorJSView> {
                   child: Container(
                     color: captionBg,
                     child: Text(
-                      collapseHtmlWhitespace(caption),
+                      htmlToPlainText(caption),
                       style: TextStyle(color: captionColor, fontSize: 12),
                     ),
                   ),
@@ -390,7 +459,7 @@ class EditorJSViewState extends State<EditorJSView> {
                   padding: captionPadding,
                   child: Container(
                     color: captionBg,
-                    child: Text(collapseHtmlWhitespace(d.caption!),
+                    child: Text(htmlToPlainText(d.caption!),
                         style: TextStyle(color: captionColor)),
                   ),
                 ));
@@ -429,7 +498,7 @@ class EditorJSViewState extends State<EditorJSView> {
                   padding: captionPadding,
                   child: Container(
                     color: captionBg,
-                    child: Text(collapseHtmlWhitespace(d.caption!),
+                    child: Text(htmlToPlainText(d.caption!),
                         style: TextStyle(color: captionColor)),
                   ),
                 ));
@@ -467,7 +536,7 @@ class EditorJSViewState extends State<EditorJSView> {
                     : CrossAxisAlignment.start,
                 children: [
                   Text(
-                    collapseHtmlWhitespace(text),
+                    htmlToPlainText(text),
                     textAlign: textAlign,
                     style: TextStyle(
                         fontStyle: FontStyle.italic,
@@ -490,7 +559,7 @@ class EditorJSViewState extends State<EditorJSView> {
                       return Padding(
                         padding: captionPadding,
                         child: Text(
-                          '— ${collapseHtmlWhitespace(caption)}',
+                          '— ${htmlToPlainText(caption)}',
                           textAlign: textAlign,
                           style: TextStyle(color: captionColor, fontSize: 14),
                         ),
@@ -559,7 +628,7 @@ class EditorJSViewState extends State<EditorJSView> {
                     },
                   ),
                   Expanded(
-                      child: Text(collapseHtmlWhitespace(text),
+                      child: Text(htmlToPlainText(text),
                           style: TextStyle(color: checklistTextColor))),
                 ],
               ));
@@ -570,7 +639,9 @@ class EditorJSViewState extends State<EditorJSView> {
             ));
             break;
         }
-        items.add(const SizedBox(height: 10));
+        if (items.length > itemCountBeforeBlock) {
+          items.add(const SizedBox(height: 10));
+        }
       },
     );
   }

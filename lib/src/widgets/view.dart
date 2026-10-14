@@ -81,6 +81,21 @@ bool isBlankHtml(String? text) {
   return htmlToPlainText(text).replaceAll(' ', ' ').trim().isEmpty;
 }
 
+final RegExp _vimeoUrl = RegExp(
+    r'^https?:\/\/(?:www\.|player\.)?vimeo\.com\/(?:video\/)?(\d+)(?:[\/?#]|$)');
+
+/// The numeric id of a Vimeo video page (`vimeo.com/<id>`) or player
+/// (`player.vimeo.com/video/<id>`) URL, or null for anything else.
+String? vimeoVideoId(String? url) =>
+    url == null ? null : _vimeoUrl.firstMatch(url.trim())?.group(1);
+
+/// The player URL of Vimeo video [id], keeping the query of an [embedUrl]
+/// such as `?title=0&byline=0`.
+String vimeoPlayerUrl(String id, [String? embedUrl]) {
+  final query = embedUrl == null ? '' : Uri.tryParse(embedUrl)?.query ?? '';
+  return 'https://player.vimeo.com/video/$id${query.isEmpty ? '' : '?$query'}';
+}
+
 class EditorJSView extends StatefulWidget {
   final EditorJSData? data;
   final EditorJSViewStyles? styles;
@@ -408,8 +423,11 @@ class EditorJSViewState extends State<EditorJSView> {
           case "embed":
             final d = element.data;
             final String? service = d?.service;
-            final String? embedUrl = d?.embed;
-            final String? sourceUrl = d?.source;
+            // EditorJS stores embed URLs HTML-escaped (`?title=0&amp;byline=0`).
+            final String? embedUrl =
+                d?.embed == null ? null : decodeHtmlEntities(d!.embed!);
+            final String? sourceUrl =
+                d?.source == null ? null : decodeHtmlEntities(d!.source!);
             final int width = d?.width ?? 560;
             final int height = d?.height ?? 315;
 
@@ -442,28 +460,19 @@ class EditorJSViewState extends State<EditorJSView> {
                   onTapUrl: widget.onLinkTap,
                 ));
               }
-              if (d?.caption != null && d!.caption!.isNotEmpty) {
-                final foundCaptionStyle = widget.styles?.cssTags
-                    ?.firstWhereOrNull(((css) => css.tag == 'caption'));
-                final captionColor = foundCaptionStyle?.color != null
-                    ? getColor(foundCaptionStyle!.color!)
-                    : null;
-                final captionBg = foundCaptionStyle?.backgroundColor != null
-                    ? getColor(foundCaptionStyle!.backgroundColor!)
-                    : null;
-                final EdgeInsets captionPadding =
-                    foundCaptionStyle?.padding != null
-                        ? EdgeInsets.all(foundCaptionStyle!.padding!)
-                        : const EdgeInsets.only(top: 6.0);
-                items.add(Padding(
-                  padding: captionPadding,
-                  child: Container(
-                    color: captionBg,
-                    child: Text(htmlToPlainText(d.caption!),
-                        style: TextStyle(color: captionColor)),
-                  ),
-                ));
-              }
+              _addEmbedCaption(d?.caption);
+            } else if (service == 'vimeo' &&
+                (vimeoVideoId(sourceUrl) ?? vimeoVideoId(embedUrl)) != null) {
+              final id = vimeoVideoId(sourceUrl) ?? vimeoVideoId(embedUrl)!;
+              // No width or height: the web view fills the width at 16:9.
+              // Vimeo plays in the iframe, so it needs no fallback link.
+              final iframe =
+                  '<iframe src="${vimeoPlayerUrl(id, embedUrl)}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+              items.add(HtmlWidget(
+                iframe,
+                onTapUrl: widget.onLinkTap,
+              ));
+              _addEmbedCaption(d?.caption);
             } else if ((embedUrl != null && embedUrl.isNotEmpty) ||
                 (sourceUrl != null && sourceUrl.isNotEmpty)) {
               final url = embedUrl ?? sourceUrl!;
@@ -481,28 +490,7 @@ class EditorJSViewState extends State<EditorJSView> {
                   child: Text(url, style: const TextStyle(color: Colors.blue)),
                 ),
               ));
-              if (d?.caption != null && d!.caption!.isNotEmpty) {
-                final foundCaptionStyle = widget.styles?.cssTags
-                    ?.firstWhereOrNull(((css) => css.tag == 'caption'));
-                final captionColor = foundCaptionStyle?.color != null
-                    ? getColor(foundCaptionStyle!.color!)
-                    : null;
-                final captionBg = foundCaptionStyle?.backgroundColor != null
-                    ? getColor(foundCaptionStyle!.backgroundColor!)
-                    : null;
-                final EdgeInsets captionPadding =
-                    foundCaptionStyle?.padding != null
-                        ? EdgeInsets.all(foundCaptionStyle!.padding!)
-                        : const EdgeInsets.only(top: 6.0);
-                items.add(Padding(
-                  padding: captionPadding,
-                  child: Container(
-                    color: captionBg,
-                    child: Text(htmlToPlainText(d.caption!),
-                        style: TextStyle(color: captionColor)),
-                  ),
-                ));
-              }
+              _addEmbedCaption(d?.caption);
             } else {
               items.add(const Text('Embed: unsupported or missing URL'));
             }
@@ -655,6 +643,30 @@ class EditorJSViewState extends State<EditorJSView> {
     } else {
       return null;
     }
+  }
+
+  /// An embed's caption under its player, styled by the `caption` css tag.
+  void _addEmbedCaption(String? caption) {
+    if (caption == null || caption.isEmpty) return;
+    final foundCaptionStyle = widget.styles?.cssTags
+        ?.firstWhereOrNull(((css) => css.tag == 'caption'));
+    final captionColor = foundCaptionStyle?.color != null
+        ? getColor(foundCaptionStyle!.color!)
+        : null;
+    final captionBg = foundCaptionStyle?.backgroundColor != null
+        ? getColor(foundCaptionStyle!.backgroundColor!)
+        : null;
+    final EdgeInsets captionPadding = foundCaptionStyle?.padding != null
+        ? EdgeInsets.all(foundCaptionStyle!.padding!)
+        : const EdgeInsets.only(top: 6.0);
+    items.add(Padding(
+      padding: captionPadding,
+      child: Container(
+        color: captionBg,
+        child: Text(htmlToPlainText(caption),
+            style: TextStyle(color: captionColor)),
+      ),
+    ));
   }
 
   Future<void> _openUrl(String url) async {
